@@ -5,7 +5,7 @@ import com.ricardo.domain.mysqldata.bean.Myuser;
 import com.ricardo.domain.mysqldata.jpa.MyuserRepository;
 import com.ricardo.domain.sqlserverdata.bean.Book;
 import com.ricardo.domain.sqlserverdata.jpa.BookRepository;
-import com.ricardo.service.TestServiceImpl;
+import com.ricardo.service.impl.TestServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * 数据数据源详细配置
@@ -52,12 +53,16 @@ public class SqlServerDataSourceConfigurer
     @Primary
     @Bean(name = "entityManagerFactorySqlServer")
     public LocalContainerEntityManagerFactoryBean entityManagerFactorySqlServer (EntityManagerFactoryBuilder builder) {
-        return builder
+        LocalContainerEntityManagerFactoryBean em =builder
                 .dataSource(bookDataSource)
                 .properties(getVendorProperties(bookDataSource))
                 .packages(new String[]{ "com.ricardo.domain.sqlserverdata" }) //设置应用creditDataSource的基础包名
                 .persistenceUnit("sqlServerPersistenceUnit")
                 .build();
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl");
+        em.setJpaProperties(properties);
+        return em;
     }
 
     //注入jpa配置实体

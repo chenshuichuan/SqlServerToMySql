@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * 91信用卡数据源详细配置
@@ -57,12 +58,18 @@ public class MySqlDataSourceConfigurer
     //配置EntityManager工厂实体
     @Bean(name = "entityManagerFactoryMySql")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryMySql (EntityManagerFactoryBuilder builder) {
-        return builder
-                .dataSource(mySqlDataSource)
-                .properties(getVendorProperties(mySqlDataSource))
-                .packages(new String[]{ "com.ricardo.domain.mysqldata" }) //设置应用creditDataSource的基础包名
-                .persistenceUnit("mySqlPersistenceUnit")
-                .build();
+        LocalContainerEntityManagerFactoryBean em =
+                builder.dataSource(mySqlDataSource)
+                        .properties(getVendorProperties(mySqlDataSource))
+                        .packages(new String[]{ "com.ricardo.domain.mysqldata" }) //设置应用creditDataSource的基础包名
+                        .persistenceUnit("mySqlPersistenceUnit")
+                        .build();
+
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.physical_naming_strategy",
+                "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+        em.setJpaProperties(properties);
+        return em;
     }
 
     //注入jpa配置实体

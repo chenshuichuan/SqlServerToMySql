@@ -1,8 +1,9 @@
-package com.ricardo.service;
+package com.ricardo.service.impl;
 
 import com.ricardo.domain.mysqldata.bean.Myuser;
 import com.ricardo.domain.sqlserverdata.bean.Book;
 //import com.ricardo.repository.BookRepository;
+import com.ricardo.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
