@@ -1,6 +1,5 @@
 package com.ricardo.service;
 
-import com.ricardo.domain.mysqldata.bean.Myuser;
 import com.ricardo.domain.sqlserverdata.bean.Book;
 //import com.ricardo.repository.BookRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,6 @@ import com.ricardo.domain.sqlserverdata.bean.Book;
  */
 
 public interface TestService {
-
-
-    public int addUser(Myuser myuser);
 
     public int addBook(Book myuser) ;
 

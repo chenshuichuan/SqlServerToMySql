@@ -1,6 +1,7 @@
 package com.ricardo.domain.mysqldata.jpa;
 
 
+import com.ricardo.domain.mysqldata.bean.Loads;
 import com.ricardo.domain.mysqldata.bean.Myuser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Time: 23:33
  */
 
-public interface MyuserRepository extends JpaRepository<Myuser,Integer> {
+public interface LoadsRepository extends JpaRepository<Loads,Integer> {
 
 }

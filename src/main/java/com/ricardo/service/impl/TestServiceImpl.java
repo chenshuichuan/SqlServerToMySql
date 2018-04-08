@@ -1,6 +1,5 @@
 package com.ricardo.service.impl;
 
-import com.ricardo.domain.mysqldata.bean.Myuser;
 import com.ricardo.domain.sqlserverdata.bean.Book;
 //import com.ricardo.repository.BookRepository;
 import com.ricardo.service.TestService;
@@ -38,11 +37,6 @@ public class TestServiceImpl implements TestService {
     @Qualifier("secondaryJdbcTemplate")
     protected JdbcTemplate jdbcTemplate2;///sqlserver book
 
-
-    public int addUser(Myuser myuser) {
-        return jdbcTemplate1.update("insert into myuser(id, name,passwd) values(?, ?, ?)",
-                myuser.getId(),myuser.getName(),myuser.getPasswd());
-    }
 
     public int addBook(Book myuser) {
         return jdbcTemplate2.update("insert into book(b_id, b_name) values(?, ?)",

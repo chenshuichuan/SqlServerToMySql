@@ -1,8 +1,7 @@
 package com.ricardo.controller;
 
 
-import com.ricardo.domain.mysqldata.bean.Myuser;
-import com.ricardo.domain.mysqldata.jpa.MyuserRepository;
+
 import com.ricardo.domain.sqlserverdata.bean.Book;
 import com.ricardo.domain.sqlserverdata.jpa.BookRepository;
 import com.ricardo.service.impl.TestServiceImpl;
@@ -27,8 +26,7 @@ public class HelloworldController {
     @Autowired
     private TestServiceImpl testServiceImpl;
 
-    @Autowired
-    private MyuserRepository myuserRepository;
+
     @Autowired
     private BookRepository bookRepository;
 
@@ -41,15 +39,9 @@ public class HelloworldController {
         logger.warn("logging warm!");
         logger.error("logging error!");
 
-        //String str =
-        testServiceImpl.addUser(new Myuser(6,"mysql","jdbc mysql"));
-        System.out.println("add user success！");
         testServiceImpl.addBook(new Book(6,"sqlserver"));
         System.out.println("add book success！");
 
-
-        myuserRepository.save(new Myuser(7,"mysql777","jdbc mysql"));
-        System.out.println("add user success！");
         testServiceImpl.addBook(new Book(7,"sqlserver"));
         System.out.println("add book success！");
 
