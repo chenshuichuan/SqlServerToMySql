@@ -1,7 +1,6 @@
 package com.ricardo.domain.mysqldata.jpa;
 
 
-import com.ricardo.domain.mysqldata.bean.Myuser;
 import com.ricardo.domain.mysqldata.bean.ProcessOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 

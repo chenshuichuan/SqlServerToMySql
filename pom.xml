@@ -80,12 +80,17 @@
             <artifactId>sqljdbc4</artifactId>
             <version>4.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc4 -->
+        <!--https://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc4-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.0.19</version>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.alibaba</groupId>-->
+        <!--<artifactId>druid-spring-boot-starter</artifactId>-->
+        <!--<version>1.1.2</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -97,6 +102,14 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.3</version>
         </dependency>
+
+        <!--actuator 和security 用于使用Spring Boot Actuator监控应用-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+
     </dependencies>
 
     <build>

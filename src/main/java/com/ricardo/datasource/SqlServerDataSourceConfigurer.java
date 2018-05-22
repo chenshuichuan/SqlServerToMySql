@@ -61,6 +61,7 @@ public class SqlServerDataSourceConfigurer
                 .build();
         Properties properties = new Properties();
         properties.setProperty("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl");
+
         em.setJpaProperties(properties);
         return em;
     }

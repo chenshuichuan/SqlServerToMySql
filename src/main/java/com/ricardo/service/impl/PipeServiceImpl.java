@@ -1,6 +1,5 @@
 package com.ricardo.service.impl;
 
-import com.ricardo.domain.mysqldata.bean.Myuser;
 import com.ricardo.domain.sqlserverdata.bean.Book;
 import com.ricardo.domain.sqlserverdata.bean.Pipe;
 import com.ricardo.domain.sqlserverdata.jpa.PipeRepository;

@@ -1,5 +1,7 @@
 package com.ricardo.schedule.task;
 
+import com.ricardo.domain.mysqldata.jpa.ShipTableRepository;
+import com.ricardo.domain.mysqldata.jpa.WorkersRepository;
 import com.ricardo.domain.sqlserverdata.bean.UpdateTable;
 import com.ricardo.domain.sqlserverdata.jpa.UpdateTableRepository;
 import org.slf4j.Logger;
@@ -26,7 +28,12 @@ public class ScanTable {
     private List<String> tableNameList;
 
     @Autowired
-    UpdateTableRepository updateTableRepository;
+    private  UpdateTableRepository updateTableRepository;
+
+    @Autowired
+    private WorkersRepository workersRepository;
+    @Autowired
+    private ShipTableRepository shipTableRepository;
 
     public ScanTable() {
         this.tableNameList = new ArrayList<>();
@@ -76,16 +83,28 @@ public class ScanTable {
                 String tableName= updateTableList.get(i).getTableName();
                 switch (tableName){
                     case "Pipe":{
-
+                        workersRepository.findAll();
+                        shipTableRepository.findAll();
+                        shipTableRepository.findOne(1);
+                        updateTableRepository.findAll();
                     }
                     case "PipeBatch":{
-
+                        workersRepository.findAll();
+                        shipTableRepository.findAll();
+                        shipTableRepository.findOne(1);
+                        updateTableRepository.findAll();
                     }
                     case "PipeComponent":{
-
+                        workersRepository.findAll();
+                        shipTableRepository.findAll();
+                        shipTableRepository.findOne(1);
+                        updateTableRepository.findAll();
                     }
                     case "PipeCutting":{
-
+                        workersRepository.findAll();
+                        shipTableRepository.findAll();
+                        shipTableRepository.findOne(1);
+                        updateTableRepository.findAll();
                     }
                     case "PipeManage":{
 
@@ -97,10 +116,16 @@ public class ScanTable {
 
                     }
                     case "PipeUnit":{
-
+                        workersRepository.findAll();
+                        shipTableRepository.findAll();
+                        shipTableRepository.findOne(1);
+                        updateTableRepository.findAll();
                     }
                     case "ShipManage":{
-
+                        workersRepository.findAll();
+                        shipTableRepository.findAll();
+                        shipTableRepository.findOne(1);
+                        updateTableRepository.findAll();
                     }
                     case "WorkPipe":{
 

@@ -1,6 +1,5 @@
 package com.ricardo.domain.sqlserverdata.service;
 
-import com.ricardo.domain.mysqldata.bean.Myuser;
 import com.ricardo.domain.sqlserverdata.bean.*;
 import com.ricardo.domain.sqlserverdata.jpa.*;
 import org.junit.Assert;

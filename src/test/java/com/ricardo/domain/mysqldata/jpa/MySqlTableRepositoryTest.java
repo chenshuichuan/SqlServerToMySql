@@ -29,18 +29,12 @@ public class MySqlTableRepositoryTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ArrangementTableRepository arrangementTableRepository;
-    @Autowired
-    private AttachmentHubBodyRepository attachmentHubBodyRepository;
-    @Autowired
-    private AttachmentHubHeaderRepository attachmentHubHeaderRepository;
+
     @Autowired
     private BatchProcessingRepository batchProcessingRepository;
 
     @Autowired
     private BatchTableRepository batchTableRepository;
-    @Autowired
-    private ConnectorRepository connectorRepository;
-
     @Autowired
     private DepartmentsRepository departmentsRepository;
     @Autowired
@@ -70,30 +64,6 @@ public class MySqlTableRepositoryTest {
 
     @Test
     @Transactional
-    public void attachmentHubBody() throws Exception {
-        Date date = new Date(System.currentTimeMillis());
-        AttachmentHubBody attachmentHubBody = new AttachmentHubBody(1234,1234,"hubnum",
-                "resourcenum","name","sp","imagenum","piece",
-                "materail",1234,1234,date,1244,
-                "remarks",date,"extend",1);
-        attachmentHubBodyRepository.save(attachmentHubBody);
-        Assert.assertThat(attachmentHubBodyRepository.findOne(1234).getExtend(),is("extend"));
-    }
-
-    @Test
-    @Transactional
-    public void attachmentHubHeader() throws Exception {
-        Date date = new Date(System.currentTimeMillis());
-        AttachmentHubHeader attachmentHubHeader = new AttachmentHubHeader(1234,1234,"shipname",
-                "batch","hubnum",1234,"warehouse","wa mana",
-                "contact","palce","receive","recieve depart",date,date,
-                1,"extend");
-        attachmentHubHeaderRepository.save(attachmentHubHeader);
-        Assert.assertThat(attachmentHubHeaderRepository.findOne(1234).getExtend(),is("extend"));
-    }
-
-    @Test
-    @Transactional
     public void batchProcessing() throws Exception {
         Date date = new Date(System.currentTimeMillis());
         BatchProcessing batchProcessing =new BatchProcessing(1234,"shipcode","batch name",1234,123,
@@ -113,16 +83,6 @@ public class MySqlTableRepositoryTest {
         batchTableRepository.save(batchTable);
         Assert.assertThat(batchTableRepository.findOne(1234).getExtend(),
                 is("extend"));
-    }
-
-    @Test
-    @Transactional
-    public void connector() throws Exception {
-        Date date = new Date(System.currentTimeMillis());
-        Connector connector = new Connector(1234,"pipeid");
-        connectorRepository.save(connector);
-        Assert.assertThat(connectorRepository.findOne(1234).getPipeId(),
-                is("pipeid"));
     }
 
     @Test

@@ -25,17 +25,7 @@ import javax.sql.DataSource;
 import java.util.Map;
 import java.util.Properties;
 
-/**
- * 91信用卡数据源详细配置
- * 项目名称：credirCardApi
- * 项目版本：V1.0
- * 包名称：com.bankcard.api
- * 创建人：yuqy
- * 创建时间：2017/2/19 15:40
- * 修改人：yuqy
- * 修改时间：2017/2/19 15:40
- * 修改备注：
- */
+
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
@@ -66,8 +56,16 @@ public class MySqlDataSourceConfigurer
                         .build();
 
         Properties properties = new Properties();
+
+//        properties.setProperty("hibernate.naming.strategy",
+//                "org.hibernate.cfg.DefaultNamingStrategy");
+        /*
+        * 使用hibernate的数据库名称解析规则，而不是spring boot的规则，
+        * springboot 规则回出现数据库字段"isCutted"这样的字段无法解析
+        * */
         properties.setProperty("hibernate.physical_naming_strategy",
-                "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+                "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl");
+
         em.setJpaProperties(properties);
         return em;
     }

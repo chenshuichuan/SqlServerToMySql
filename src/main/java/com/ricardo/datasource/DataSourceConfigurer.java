@@ -1,14 +1,19 @@
 package com.ricardo.datasource;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * ========================
@@ -40,19 +45,75 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfigurer
 {
-    @Bean(name = "primaryDataSource")
+
+    @Autowired
+    private Environment env;
+
+    @Bean(name = "primaryDataSource",destroyMethod = "close")
     @Qualifier("primaryDataSource")
     @Primary
     @ConfigurationProperties(prefix="spring.datasource.mysql")
     public DataSource primaryDataSource() {
-        return DataSourceBuilder.create().build();
+        DruidDataSource druidDataSource = new DruidDataSource();
+        druidDataSource.setUrl(env.getProperty("spring.datasource.mysql.url"));
+        druidDataSource.setUsername(env.getProperty("spring.datasource.mysql.username"));
+        druidDataSource.setPassword(env.getProperty("spring.datasource.mysql.password"));
+        druidDataSource.setDriverClassName(env.getProperty("spring.datasource.mysql.driver-class-name"));
+
+        druidDataSource.setInitialSize(2);//初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
+        druidDataSource.setMaxActive(20);//最大连接池数量
+        druidDataSource.setMinIdle(0);//最小连接池数量
+        druidDataSource.setMaxWait(60000);//获取连接时最大等待时间，单位毫秒。配置了maxWait之后，缺省启用公平锁，并发效率会有所下降，如果需要可以通过配置useUnfairLock属性为true使用非公平锁。
+        druidDataSource.setValidationQuery("SELECT 1");//用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用。
+        //dataSource.setTestOnBorrow(false);//申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+        // dataSource.setTestWhileIdle(true);//建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+        druidDataSource.setPoolPreparedStatements(false);//是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+
+        druidDataSource.setTestOnBorrow(true);
+        druidDataSource.setTestOnReturn(true);
+        druidDataSource.setTestWhileIdle(true);
+        try {
+            druidDataSource.setFilters(env.getProperty("spring.datasource.filters"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        druidDataSource.setUseGlobalDataSourceStat(true);
+        //druidDataSource.setConnectProperties(new Properties(env.getProperty("")));
+        //return DataSourceBuilder.create().build();
+        return druidDataSource;
     }
 
-    @Bean(name = "secondaryDataSource")
+    @Bean(name = "secondaryDataSource",destroyMethod = "close")
     @Qualifier("secondaryDataSource")
     @ConfigurationProperties(prefix="spring.datasource.sqlserver")
     public DataSource secondaryDataSource() {
-        return DataSourceBuilder.create().build();
+        DruidDataSource druidDataSource = new DruidDataSource();
+        druidDataSource.setUrl(env.getProperty("spring.datasource.sqlserver.url"));
+        druidDataSource.setUsername(env.getProperty("spring.datasource.sqlserver.username"));
+        druidDataSource.setPassword(env.getProperty("spring.datasource.sqlserver.password"));
+        druidDataSource.setDriverClassName(env.getProperty("spring.datasource.sqlserver.driver-class-name"));
+        //return DataSourceBuilder.create().build();
+        druidDataSource.setInitialSize(2);//初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时
+        druidDataSource.setMaxActive(20);//最大连接池数量
+        druidDataSource.setMinIdle(0);//最小连接池数量
+        druidDataSource.setMaxWait(60000);//获取连接时最大等待时间，单位毫秒。配置了maxWait之后，缺省启用公平锁，并发效率会有所下降，如果需要可以通过配置useUnfairLock属性为true使用非公平锁。
+        druidDataSource.setValidationQuery("SELECT 1");//用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用。
+        //dataSource.setTestOnBorrow(false);//申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+        // dataSource.setTestWhileIdle(true);//建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+        druidDataSource.setPoolPreparedStatements(false);//是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+
+        druidDataSource.setTestOnBorrow(true);
+        druidDataSource.setTestOnReturn(true);
+        druidDataSource.setTestWhileIdle(true);
+        try {
+            druidDataSource.setFilters(env.getProperty("spring.datasource.filters"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        druidDataSource.setUseGlobalDataSourceStat(true);
+
+        return druidDataSource;
     }
 
     @Bean(name = "primaryJdbcTemplate")

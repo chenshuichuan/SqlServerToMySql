@@ -2,7 +2,7 @@ package com.ricardo.domain.mysqldata.jpa;
 
 
 import com.ricardo.domain.mysqldata.bean.ArrangementTable;
-import com.ricardo.domain.mysqldata.bean.Myuser;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

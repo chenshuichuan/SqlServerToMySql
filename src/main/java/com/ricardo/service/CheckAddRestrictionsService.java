@@ -3,13 +3,13 @@ package com.ricardo.service;
 /**
  * @author Ricardo
  *
- * @Description
+ * @Description 检查添加记录约束条件是否满足
  *
  * Date: 2018/3/14
  * Time: 22:25
  */
 
-public interface PipeService {
+public interface CheckAddRestrictionsService {
 
     /**
      *@Author: Ricardo
