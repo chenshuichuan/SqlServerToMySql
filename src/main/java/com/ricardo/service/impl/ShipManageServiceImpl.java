@@ -1,8 +1,7 @@
 package com.ricardo.service.impl;
 
-import com.ricardo.domain.sqlserverdata.bean.ShipManage;
-import com.ricardo.domain.sqlserverdata.jpa.ShipManageRepository;
-import com.ricardo.service.PipeService;
+import com.ricardo.domain.sqlserverdata.bean.SqlShipManage;
+import com.ricardo.domain.sqlserverdata.jpa.SqlShipManageRepository;
 import com.ricardo.service.ShipManageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,14 +33,14 @@ public class ShipManageServiceImpl implements ShipManageService {
     protected JdbcTemplate sqlserverJdbc;///sqlserver book
 
     @Autowired
-    private ShipManageRepository shipManageRepository;
+    private SqlShipManageRepository shipManageRepository;
 
     @Override
     public void update() {
-        List<ShipManage> objectList = shipManageRepository.findByIsUpdate(Boolean.TRUE);
+        List<SqlShipManage> objectList = shipManageRepository.findByIsUpdate(Boolean.TRUE);
         if(objectList!=null&&objectList.size()>0){
             for (int i = 0; i < objectList.size(); i++) {
-                ShipManage temp = objectList.get(i);
+                SqlShipManage temp = objectList.get(i);
                 try{
 
                     //1.更新mysql
@@ -63,7 +62,7 @@ public class ShipManageServiceImpl implements ShipManageService {
 
     @Override
     public void delete() {
-        List<ShipManage> objectList = shipManageRepository.findByIsDelete(Boolean.TRUE);
+        List<SqlShipManage> objectList = shipManageRepository.findByIsDelete(Boolean.TRUE);
         if(objectList!=null&&objectList.size()>0){
             for (int i = 0; i < objectList.size(); i++) {
                 try{

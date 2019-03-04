@@ -1,6 +1,6 @@
 package com.ricardo.domain.sqlserverdata.jpa;
 
-import com.ricardo.domain.sqlserverdata.bean.PipeBatch;
+import com.ricardo.domain.sqlserverdata.bean.SqlPipeBatch;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
 
 /**
  * Created by:Ricardo
@@ -25,33 +23,33 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class UpdateIsUpdateTest {
     @Autowired
-    private PipeRepository pipeRepository;
+    private SqlPipeRepository pipeRepository;
     @Autowired
-    private PipeBatchRepository pipeBatchRepository;
+    private SqlPipeBatchRepository pipeBatchRepository;
     @Autowired
-    private PipeComponentRepository pipeComponentRepository;
+    private SqlPipeComponentRepository pipeComponentRepository;
     @Autowired
-    private PipeCuttingRepository pipeCuttingRepository;
+    private SqlPipeCuttingRepository pipeCuttingRepository;
     @Autowired
-    private PipeManageRepository pipeManageRepository;
+    private SqlPipeManageRepository pipeManageRepository;
     @Autowired
-    private PipeMaterialRepository pipeMaterialRepository;
+    private SqlPipeMaterialRepository pipeMaterialRepository;
     @Autowired
-    private PipeStoreRepository pipeStoreRepository;
+    private SqlPipeStoreRepository pipeStoreRepository;
     @Autowired
-    private PipeUnitRepository pipeUnitRepository;
+    private SqlPipeUnitRepository pipeUnitRepository;
     @Autowired
-    private ShipManageRepository shipManageRepository;
+    private SqlShipManageRepository shipManageRepository;
     @Autowired
     private UpdateTableRepository updateTableRepository;
     @Autowired
-    private WorkPipeRepository workPipeRepository;
+    private SqlWorkPipeRepository workPipeRepository;
 
 
     @Test
     @Transactional
     public void pipeBatch_setIsUpdateById(){
-        PipeBatch pipeBatch =new PipeBatch(1,1,TRUE,TRUE,
+        SqlPipeBatch pipeBatch =new SqlPipeBatch(1,1,TRUE,TRUE,
                 123,"加工批次","description");
         pipeBatchRepository.save(pipeBatch);
         Assert.assertThat(pipeBatchRepository.findOne(1).getMidId(),is(1));

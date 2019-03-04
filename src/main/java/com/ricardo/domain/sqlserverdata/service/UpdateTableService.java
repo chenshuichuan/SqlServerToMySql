@@ -1,6 +1,5 @@
 package com.ricardo.domain.sqlserverdata.service;
 
-import com.ricardo.domain.sqlserverdata.bean.Book;
 
 /**
  * @author Ricardo

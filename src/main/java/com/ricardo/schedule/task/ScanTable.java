@@ -1,7 +1,5 @@
 package com.ricardo.schedule.task;
 
-import com.ricardo.domain.mysqldata.jpa.ShipTableRepository;
-import com.ricardo.domain.mysqldata.jpa.WorkersRepository;
 import com.ricardo.domain.sqlserverdata.bean.UpdateTable;
 import com.ricardo.domain.sqlserverdata.jpa.UpdateTableRepository;
 import org.slf4j.Logger;
@@ -30,14 +28,10 @@ public class ScanTable {
     @Autowired
     private  UpdateTableRepository updateTableRepository;
 
-    @Autowired
-    private WorkersRepository workersRepository;
-    @Autowired
-    private ShipTableRepository shipTableRepository;
 
     public ScanTable() {
         this.tableNameList = new ArrayList<>();
-        tableNameList.add("Pipe");
+        tableNameList.add("SqlPipe");
         tableNameList.add("PipeBatch");
         tableNameList.add("PipeComponent");
         tableNameList.add("PipeCutting");
@@ -46,9 +40,9 @@ public class ScanTable {
         tableNameList.add("PipeStore");
         tableNameList.add("PipeUnit");
         tableNameList.add("ShipManage");
-        tableNameList.add("WorkPipe");
+        tableNameList.add("SqlWorkPipe");
 
-        tableNameList.add("ShipTypeManage");
+        tableNameList.add("SqlShipTypeManage");
     }
 
     /**
@@ -84,28 +78,20 @@ public class ScanTable {
                 logger.debug("table:"+updateTableList.get(i).getTableName()+" isUpdate");
                 String tableName= updateTableList.get(i).getTableName();
                 switch (tableName){
-                    case "Pipe":{
-                        workersRepository.findAll();
-                        shipTableRepository.findAll();
-                        shipTableRepository.findOne(1);
+                    case "SqlPipe":{
+
                         updateTableRepository.findAll();
                     }break;
                     case "PipeBatch":{
-                        workersRepository.findAll();
-                        shipTableRepository.findAll();
-                        shipTableRepository.findOne(1);
+
                         updateTableRepository.findAll();
                     }break;
                     case "PipeComponent":{
-                        workersRepository.findAll();
-                        shipTableRepository.findAll();
-                        shipTableRepository.findOne(1);
+
                         updateTableRepository.findAll();
                     }break;
                     case "PipeCutting":{
-                        workersRepository.findAll();
-                        shipTableRepository.findAll();
-                        shipTableRepository.findOne(1);
+
                         updateTableRepository.findAll();
                     }break;
                     case "PipeManage":{
@@ -118,21 +104,17 @@ public class ScanTable {
 
                     }break;
                     case "PipeUnit":{
-                        workersRepository.findAll();
-                        shipTableRepository.findAll();
-                        shipTableRepository.findOne(1);
+
                         updateTableRepository.findAll();
                     }break;
                     case "ShipManage":{
-                        workersRepository.findAll();
-                        shipTableRepository.findAll();
-                        shipTableRepository.findOne(1);
+
                         updateTableRepository.findAll();
                     }break;
-                    case "WorkPipe":{
+                    case "SqlWorkPipe":{
 
                     }break;
-                    case "ShipTypeManage":{
+                    case "SqlShipTypeManage":{
 
                     }break;
                 }
@@ -157,7 +139,7 @@ public class ScanTable {
 
                 String tableName= updateTableList.get(i).getTableName();
                 switch (tableName){
-                    case "Pipe":{
+                    case "SqlPipe":{
 
                     }break;
                     case "PipeBatch":{
@@ -184,10 +166,10 @@ public class ScanTable {
                     case "ShipManage":{
 
                     }break;
-                    case "WorkPipe":{
+                    case "SqlWorkPipe":{
 
                     }break;
-                    case "ShipTypeManage":{
+                    case "SqlShipTypeManage":{
 
                     }break;
                 }
