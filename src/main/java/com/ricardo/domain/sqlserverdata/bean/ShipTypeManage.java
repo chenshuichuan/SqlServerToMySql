@@ -7,13 +7,13 @@ import javax.persistence.Table;
 
 /**
  * Created by:Ricardo
- * Description:
+ * Description: 注意和shipManage的区别
  * Date: 2018/3/14
  * Time: 22:37
  */
 @Entity
-@Table(name="ShipManage")
-public class ShipManage {
+@Table(name="ShipTypeManage")
+public class ShipTypeManage {
 
     @Id
     @Column(name="OID")
@@ -28,35 +28,32 @@ public class ShipManage {
     @Column(name="是否更新")
     private  Boolean isUpdate;
 
-    @Column(name="型船ID")
-    private  int shapeShipId;
-    @Column(name="号船名称")
-    private  String callShipName;
+    @Column(name="型船代号")
+    private  String shapeShipCode;
 
-    @Column(name="号船代号")
-    private  String callShipCode;
+    @Column(name="型船名称")
+    private  String shapeShipName;
 
-    public int getShapeShipId() {
-        return shapeShipId;
+    public String getShapeShipName() {
+        return shapeShipName;
     }
 
-    public void setShapeShipId(int shapeShipId) {
-        this.shapeShipId = shapeShipId;
+    public void setShapeShipName(String shapeShipName) {
+        this.shapeShipName = shapeShipName;
     }
 
-    public ShipManage( ) {
+    public ShipTypeManage( ) {
 
     }
 
-    public ShipManage(int oldId, int midId, Boolean isDelete,
-                      Boolean isUpdate,int shapeShipId, String callShipName, String callShipCode) {
+    public ShipTypeManage(int oldId, int midId, Boolean isDelete,
+                          Boolean isUpdate, String shapeShipCode, String shapeShipName) {
         this.oldId = oldId;
         this.midId = midId;
         this.isDelete = isDelete;
         this.isUpdate = isUpdate;
-        this.callShipName = callShipName;
-        this.callShipCode = callShipCode;
-        this.shapeShipId = shapeShipId;
+        this.shapeShipCode = shapeShipCode;
+        this.shapeShipName = shapeShipName;
     }
 
     public int getOldId() {
@@ -91,19 +88,13 @@ public class ShipManage {
         isUpdate = update;
     }
 
-    public String getCallShipName() {
-        return callShipName;
+    public String getShapeShipCode() {
+        return shapeShipCode;
     }
 
-    public void setCallShipName(String callShipName) {
-        this.callShipName = callShipName;
+    public void setShapeShipCode(String shapeShipCode) {
+        this.shapeShipCode = shapeShipCode;
     }
 
-    public String getCallShipCode() {
-        return callShipCode;
-    }
 
-    public void setCallShipCode(String callShipCode) {
-        this.callShipCode = callShipCode;
-    }
 }

@@ -47,6 +47,8 @@ public class ScanTable {
         tableNameList.add("PipeUnit");
         tableNameList.add("ShipManage");
         tableNameList.add("WorkPipe");
+
+        tableNameList.add("ShipTypeManage");
     }
 
     /**
@@ -87,49 +89,52 @@ public class ScanTable {
                         shipTableRepository.findAll();
                         shipTableRepository.findOne(1);
                         updateTableRepository.findAll();
-                    }
+                    }break;
                     case "PipeBatch":{
                         workersRepository.findAll();
                         shipTableRepository.findAll();
                         shipTableRepository.findOne(1);
                         updateTableRepository.findAll();
-                    }
+                    }break;
                     case "PipeComponent":{
                         workersRepository.findAll();
                         shipTableRepository.findAll();
                         shipTableRepository.findOne(1);
                         updateTableRepository.findAll();
-                    }
+                    }break;
                     case "PipeCutting":{
                         workersRepository.findAll();
                         shipTableRepository.findAll();
                         shipTableRepository.findOne(1);
                         updateTableRepository.findAll();
-                    }
+                    }break;
                     case "PipeManage":{
 
-                    }
+                    }break;
                     case "PipeMaterial":{
 
-                    }
+                    }break;
                     case "PipeStore":{
 
-                    }
+                    }break;
                     case "PipeUnit":{
                         workersRepository.findAll();
                         shipTableRepository.findAll();
                         shipTableRepository.findOne(1);
                         updateTableRepository.findAll();
-                    }
+                    }break;
                     case "ShipManage":{
                         workersRepository.findAll();
                         shipTableRepository.findAll();
                         shipTableRepository.findOne(1);
                         updateTableRepository.findAll();
-                    }
+                    }break;
                     case "WorkPipe":{
 
-                    }
+                    }break;
+                    case "ShipTypeManage":{
+
+                    }break;
                 }
             }
         }
@@ -154,34 +159,37 @@ public class ScanTable {
                 switch (tableName){
                     case "Pipe":{
 
-                    }
+                    }break;
                     case "PipeBatch":{
 
-                    }
+                    }break;
                     case "PipeComponent":{
 
-                    }
+                    }break;
                     case "PipeCutting":{
 
-                    }
+                    }break;
                     case "PipeManage":{
 
-                    }
+                    }break;
                     case "PipeMaterial":{
 
-                    }
+                    }break;
                     case "PipeStore":{
 
-                    }
+                    }break;
                     case "PipeUnit":{
 
-                    }
+                    }break;
                     case "ShipManage":{
 
-                    }
+                    }break;
                     case "WorkPipe":{
 
-                    }
+                    }break;
+                    case "ShipTypeManage":{
+
+                    }break;
                 }
             }
         }

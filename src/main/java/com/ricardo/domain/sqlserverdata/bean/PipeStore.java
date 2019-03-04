@@ -31,11 +31,11 @@ public class PipeStore {
     @Column(name="号船ID")
     private  int callShipId;
 
-    @Column(name="装配管ID")
-    private  int assemblyId;
-
     @Column(name="加工单元ID")
     private  int processUnitId;
+
+    @Column(name="装配管ID")
+    private  int assemblyId;
 
     @Column(name="堆放场地")
     private  String storePlace;

@@ -28,7 +28,6 @@ public class WorkPipe {
     @Column(name="是否更新")
     private  Boolean isUpdate;
 
-
     @Column(name="号船ID")
     private  int callShipId;
 
@@ -65,8 +64,6 @@ public class WorkPipe {
     @Column(name="外场装配标记")
     //长度只有一位
     private  String outfieldAssemblyFlag;
-
-
 
     public WorkPipe( ) {
 

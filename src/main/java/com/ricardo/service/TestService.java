@@ -1,6 +1,6 @@
 package com.ricardo.service;
 
-import com.ricardo.domain.sqlserverdata.bean.Book;
+//import com.ricardo.domain.sqlserverdata.bean.Book;
 //import com.ricardo.repository.BookRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +18,7 @@ import com.ricardo.domain.sqlserverdata.bean.Book;
 
 public interface TestService {
 
-    public int addBook(Book myuser) ;
+    //public int addBook(Book myuser) ;
 
 //    @Override
 //    public int add(LearnResouce learnResouce) {

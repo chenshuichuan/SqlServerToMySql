@@ -40,13 +40,25 @@ public class PipeManage {
     @Column(name="派工单")
     private  String dispatchList;
 
+    //加工顺序
+    @Column(name="工序")
+    private  String processOrder;
+
     public PipeManage( ) {
 
     }
 
+    public String getProcessOrder() {
+        return processOrder;
+    }
+
+    public void setProcessOrder(String processOrder) {
+        this.processOrder = processOrder;
+    }
+
     public PipeManage(int oldId, int midId, Boolean isDelete,
                       Boolean isUpdate, int callShipId, int assemblyId,
-                      int processUnitId, String dispatchList) {
+                      int processUnitId, String dispatchList, String processOrder) {
         this.oldId = oldId;
         this.midId = midId;
         this.isDelete = isDelete;
@@ -55,6 +67,7 @@ public class PipeManage {
         this.assemblyId = assemblyId;
         this.processUnitId = processUnitId;
         this.dispatchList = dispatchList;
+        this.processOrder = processOrder;
     }
 
     public int getOldId() {

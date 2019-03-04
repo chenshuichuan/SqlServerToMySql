@@ -1,9 +1,5 @@
 package com.ricardo.controller;
 
-
-
-import com.ricardo.domain.sqlserverdata.bean.Book;
-import com.ricardo.domain.sqlserverdata.jpa.BookRepository;
 import com.ricardo.service.impl.TestServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +23,6 @@ public class HelloworldController {
     private TestServiceImpl testServiceImpl;
 
 
-    @Autowired
-    private BookRepository bookRepository;
-
     @RequestMapping("/hello")
     public String index(){
 
@@ -38,12 +31,6 @@ public class HelloworldController {
         logger.info("logging info!");
         logger.warn("logging warm!");
         logger.error("logging error!");
-
-        testServiceImpl.addBook(new Book(6,"sqlserver"));
-        System.out.println("add book success！");
-
-        testServiceImpl.addBook(new Book(7,"sqlserver"));
-        System.out.println("add book success！");
 
         return  "Hello World!123";
 

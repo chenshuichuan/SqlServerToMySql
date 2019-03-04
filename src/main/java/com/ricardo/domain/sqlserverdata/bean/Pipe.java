@@ -38,7 +38,6 @@ public class Pipe {
     private  String trayCode;
 
     @Column(name="装配管号")
-
     private  String assemblyCode;
 
     @Column(name="集配管号")

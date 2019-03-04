@@ -19,6 +19,9 @@ public class PipeComponent {
     @Column(name="OID")
     private  int oldId;
 
+    @Column(name="是否更新")
+    private  Boolean isUpdate;
+
     @Column(name="部件ID")
     private  String processingBatch;
 
@@ -33,15 +36,23 @@ public class PipeComponent {
     @Column(name="材质")
     private  String materials;
 
+    public Boolean getUpdate() {
+        return isUpdate;
+    }
+
+    public void setUpdate(Boolean update) {
+        isUpdate = update;
+    }
 
     public PipeComponent(int oldId, String processingBatch, String name,
-                         String modelDescription, String standardGraphCode, String materials) {
+                         String modelDescription, String standardGraphCode, String materials,Boolean isUpdate) {
         this.oldId = oldId;
         this.processingBatch = processingBatch;
         this.name = name;
         this.modelDescription = modelDescription;
         this.standardGraphCode = standardGraphCode;
         this.materials = materials;
+        this.isUpdate = isUpdate;
     }
 
     public PipeComponent( ) {

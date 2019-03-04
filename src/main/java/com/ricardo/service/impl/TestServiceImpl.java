@@ -1,6 +1,6 @@
 package com.ricardo.service.impl;
 
-import com.ricardo.domain.sqlserverdata.bean.Book;
+//import com.ricardo.domain.sqlserverdata.bean.Book;
 //import com.ricardo.repository.BookRepository;
 import com.ricardo.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +38,10 @@ public class TestServiceImpl implements TestService {
     protected JdbcTemplate jdbcTemplate2;///sqlserver book
 
 
-    public int addBook(Book myuser) {
-        return jdbcTemplate2.update("insert into book(b_id, b_name) values(?, ?)",
-                myuser.getId(),myuser.getName());
-    }
+//    public int addBook(Book myuser) {
+//        return jdbcTemplate2.update("insert into book(b_id, b_name) values(?, ?)",
+//                myuser.getId(),myuser.getName());
+//    }
 
 //    @Override
 //    public int add(LearnResouce learnResouce) {

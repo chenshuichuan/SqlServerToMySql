@@ -1,7 +1,7 @@
 package com.ricardo.domain.sqlserverdata.service;
 
 
-import com.ricardo.domain.sqlserverdata.bean.Book;
+//import com.ricardo.domain.sqlserverdata.bean.Book;
 import com.ricardo.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,12 +36,4 @@ public class UpdateTableServiceImpl implements UpdateTableService {
 //        return jdbcTemplate1.update("insert into myuser(id, name,passwd) values(?, ?, ?)",
 //                myuser.getId(),myuser.getName(),myuser.getPasswd());
 //    }
-
-    public int addBook(Book myuser) {
-        return jdbcTemplate2.update("insert into book(b_id, b_name) values(?, ?)",
-                myuser.getId(),myuser.getName());
-    }
-
-
-
 }
