@@ -4,3 +4,4 @@
 target
 SqlServerToMySql.iml
 **.log
+logs/*

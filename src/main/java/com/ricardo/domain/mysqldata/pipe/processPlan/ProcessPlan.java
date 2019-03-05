@@ -21,7 +21,6 @@ public class ProcessPlan extends BaseEntity
 	
 	/** plan id */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	/** 序号 */

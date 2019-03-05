@@ -133,4 +133,19 @@ public class SqlPipeManage {
     public void setDispatchList(String dispatchList) {
         this.dispatchList = dispatchList;
     }
+
+    @Override
+    public String toString() {
+        return "SqlPipeManage{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", callShipId=" + callShipId +
+                ", assemblyId=" + assemblyId +
+                ", processUnitId=" + processUnitId +
+                ", dispatchList='" + dispatchList + '\'' +
+                ", processOrder='" + processOrder + '\'' +
+                '}';
+    }
 }

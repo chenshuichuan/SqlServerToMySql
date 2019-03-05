@@ -219,4 +219,26 @@ public class SqlWorkPipe {
     public void setOutfieldAssemblyFlag(String outfieldAssemblyFlag) {
         this.outfieldAssemblyFlag = outfieldAssemblyFlag;
     }
+
+    @Override
+    public String toString() {
+        return "SqlWorkPipe{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", callShipId=" + callShipId +
+                ", assemblyId=" + assemblyId +
+                ", pipeDiameter=" + pipeDiameter +
+                ", pipeOutsideDiameter=" + pipeOutsideDiameter +
+                ", pipeThickness=" + pipeThickness +
+                ", pipeMaterial='" + pipeMaterial + '\'' +
+                ", pipeMaterialLevel='" + pipeMaterialLevel + '\'' +
+                ", pipeMaterialName='" + pipeMaterialName + '\'' +
+                ", pipeSectionShape='" + pipeSectionShape + '\'' +
+                ", cuttingLength=" + cuttingLength +
+                ", surfaceTreat='" + surfaceTreat + '\'' +
+                ", outfieldAssemblyFlag='" + outfieldAssemblyFlag + '\'' +
+                '}';
+    }
 }

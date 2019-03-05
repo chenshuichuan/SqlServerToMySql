@@ -120,4 +120,18 @@ public class SqlPipeUnit {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "SqlPipeUnit{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", callShipId=" + callShipId +
+                ", processBatchId=" + processBatchId +
+                ", processUnit='" + processUnit + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

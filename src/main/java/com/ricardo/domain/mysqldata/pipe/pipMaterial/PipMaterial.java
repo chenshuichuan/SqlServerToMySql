@@ -53,7 +53,10 @@ public class PipMaterial extends BaseEntity
     @Column(name = "outfield_flag")
 	private String outfieldFlag;
 
-	public void setOldId(Integer oldId) 
+	public PipMaterial() {
+	}
+
+	public void setOldId(Integer oldId)
 	{
 		this.oldId = oldId;
 	}

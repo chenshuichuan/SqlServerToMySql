@@ -21,7 +21,6 @@ public class Ship extends BaseEntity
 	
 	/** id */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
 	private Integer id;
 	/** 船名代码 */
@@ -52,7 +51,36 @@ public class Ship extends BaseEntity
     @Column(name = "is_finished")
 	private Integer isFinished;
 
-	public void setId(Integer id) 
+	public Ship() {
+	}
+
+	public Ship(Integer id,String shipCode, String shipName, String shapeShipId, Integer batchNumber, Integer unprocessNumber,
+				Integer processingNumber, Integer processedNumber, Date updateTime, Integer isFinished) {
+		this.id = id;
+		this.shipCode = shipCode;
+		this.shipName = shipName;
+		this.shapeShipId = shapeShipId;
+		this.batchNumber = batchNumber;
+		this.unprocessNumber = unprocessNumber;
+		this.processingNumber = processingNumber;
+		this.processedNumber = processedNumber;
+		this.updateTime = updateTime;
+		this.isFinished = isFinished;
+	}
+	public Ship(Integer id,String shipCode, String shipName, String shapeShipId) {
+		this.id = id;
+		this.shipCode = shipCode;
+		this.shipName = shipName;
+		this.shapeShipId = shapeShipId;
+		this.updateTime = new Date();
+		this.isFinished = 0;
+		this.batchNumber = 0;
+		this.unprocessNumber = 0;
+		this.processingNumber = 0;
+		this.processedNumber = 0;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

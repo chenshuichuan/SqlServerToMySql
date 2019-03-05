@@ -106,4 +106,17 @@ public class SqlPipeComponent {
     public void setMaterials(String materials) {
         this.materials = materials;
     }
+
+    @Override
+    public String toString() {
+        return "SqlPipeComponent{" +
+                "oldId=" + oldId +
+                ", isUpdate=" + isUpdate +
+                ", processingBatch='" + processingBatch + '\'' +
+                ", name='" + name + '\'' +
+                ", modelDescription='" + modelDescription + '\'' +
+                ", standardGraphCode='" + standardGraphCode + '\'' +
+                ", materials='" + materials + '\'' +
+                '}';
+    }
 }

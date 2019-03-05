@@ -87,7 +87,10 @@ public class WorkPipe extends BaseEntity
     @Column(name = "update_time")
 	private Date updateTime;
 
-	public void setId(Integer id) 
+	public WorkPipe() {
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

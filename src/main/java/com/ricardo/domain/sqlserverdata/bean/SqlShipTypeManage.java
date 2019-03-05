@@ -96,5 +96,15 @@ public class SqlShipTypeManage {
         this.shapeShipCode = shapeShipCode;
     }
 
-
+    @Override
+    public String toString() {
+        return "SqlShipTypeManage{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", shapeShipCode='" + shapeShipCode + '\'' +
+                ", shapeShipName='" + shapeShipName + '\'' +
+                '}';
+    }
 }

@@ -21,7 +21,6 @@ public class Pipe extends BaseEntity
 	
 	/** 装配管号ID */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
 	private Integer id;
 	/** 号船代号 */
@@ -61,7 +60,10 @@ public class Pipe extends BaseEntity
     @Column(name = "is_out_of_unit")
 	private Integer isOutOfUnit;
 
-	public void setId(Integer id) 
+	public Pipe() {
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

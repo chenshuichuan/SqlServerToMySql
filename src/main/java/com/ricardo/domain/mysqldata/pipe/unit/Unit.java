@@ -21,7 +21,6 @@ public class Unit extends BaseEntity
 	
 	/** id */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
 	private Integer id;
 	/** 单元名称 */
@@ -79,7 +78,10 @@ public class Unit extends BaseEntity
     @Column(name = "is_finished")
 	private Integer isFinished;
 
-	public void setId(Integer id) 
+	public Unit() {
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

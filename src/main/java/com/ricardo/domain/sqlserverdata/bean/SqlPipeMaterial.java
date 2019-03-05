@@ -159,4 +159,21 @@ public class SqlPipeMaterial {
     public void setOutfieldFlag(char outfieldFlag) {
         this.outfieldFlag = outfieldFlag;
     }
+
+    @Override
+    public String toString() {
+        return "SqlPipeMaterial{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", shapeShipId=" + shapeShipId +
+                ", assemblyId=" + assemblyId +
+                ", pipeEndFlag='" + pipeEndFlag + '\'' +
+                ", componentId=" + componentId +
+                ", amount=" + amount +
+                ", weight=" + weight +
+                ", outfieldFlag=" + outfieldFlag +
+                '}';
+    }
 }

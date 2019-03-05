@@ -54,7 +54,10 @@ public class PipStore extends BaseEntity
     @Column(name = "in_store_date")
 	private Date inStoreDate;
 
-	public void setOldId(Integer oldId) 
+	public PipStore() {
+	}
+
+	public void setOldId(Integer oldId)
 	{
 		this.oldId = oldId;
 	}

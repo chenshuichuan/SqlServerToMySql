@@ -195,4 +195,23 @@ public class SqlPipeCutting {
     public void setNoInstalled(String noInstalled) {
         this.noInstalled = noInstalled;
     }
+
+    @Override
+    public String toString() {
+        return "SqlPipeCutting{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", callShipId=" + callShipId +
+                ", machiningBatch='" + machiningBatch + '\'' +
+                ", assemblyId=" + assemblyId +
+                ", cuttingLength=" + cuttingLength +
+                ", pipeSpecification='" + pipeSpecification + '\'' +
+                ", inClassShipLevel='" + inClassShipLevel + '\'' +
+                ", processUnitId=" + processUnitId +
+                ", pipeShape='" + pipeShape + '\'' +
+                ", noInstalled='" + noInstalled + '\'' +
+                '}';
+    }
 }

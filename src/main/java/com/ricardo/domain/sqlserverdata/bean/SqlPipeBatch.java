@@ -108,4 +108,17 @@ public class SqlPipeBatch {
         this.processingBatch = processingBatch;
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "SqlPipeBatch{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", callShipId=" + callShipId +
+                ", processingBatch='" + processingBatch + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

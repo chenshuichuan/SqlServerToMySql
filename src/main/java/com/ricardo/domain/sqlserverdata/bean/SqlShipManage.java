@@ -106,4 +106,17 @@ public class SqlShipManage {
     public void setCallShipCode(String callShipCode) {
         this.callShipCode = callShipCode;
     }
+
+    @Override
+    public String toString() {
+        return "SqlShipManage{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", shapeShipId=" + shapeShipId +
+                ", callShipName='" + callShipName + '\'' +
+                ", callShipCode='" + callShipCode + '\'' +
+                '}';
+    }
 }

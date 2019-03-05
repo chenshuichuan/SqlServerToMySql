@@ -59,7 +59,10 @@ public class Batch extends BaseEntity
     @Column(name = "is_finished")
 	private Integer isFinished;
 
-	public void setId(Integer id) 
+	public Batch() {
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

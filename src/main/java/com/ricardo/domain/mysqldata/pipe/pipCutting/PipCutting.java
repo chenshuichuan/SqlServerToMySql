@@ -59,7 +59,10 @@ public class PipCutting extends BaseEntity
     @Column(name = "no_installed")
 	private String noInstalled;
 
-	public void setOldId(Integer oldId) 
+	public PipCutting() {
+	}
+
+	public void setOldId(Integer oldId)
 	{
 		this.oldId = oldId;
 	}

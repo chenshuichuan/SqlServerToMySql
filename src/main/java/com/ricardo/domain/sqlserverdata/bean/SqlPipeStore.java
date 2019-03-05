@@ -157,4 +157,21 @@ public class SqlPipeStore {
     public void setOutStoreDate(Date outStoreDate) {
         this.outStoreDate = outStoreDate;
     }
+
+    @Override
+    public String toString() {
+        return "SqlPipeStore{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", callShipId=" + callShipId +
+                ", processUnitId=" + processUnitId +
+                ", assemblyId=" + assemblyId +
+                ", storePlace='" + storePlace + '\'' +
+                ", inStoreDate=" + inStoreDate +
+                ", collectionDate=" + collectionDate +
+                ", outStoreDate=" + outStoreDate +
+                '}';
+    }
 }

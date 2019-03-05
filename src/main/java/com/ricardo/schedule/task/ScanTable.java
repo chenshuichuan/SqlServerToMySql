@@ -1,7 +1,9 @@
 package com.ricardo.schedule.task;
 
+import com.ricardo.domain.mysqldata.bean.Constants;
 import com.ricardo.domain.sqlserverdata.bean.UpdateTable;
 import com.ricardo.domain.sqlserverdata.jpa.UpdateTableRepository;
+import com.ricardo.service.ShipManageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -28,21 +29,24 @@ public class ScanTable {
     @Autowired
     private  UpdateTableRepository updateTableRepository;
 
+    @Autowired
+    private ShipManageService shipManageService;
 
     public ScanTable() {
         this.tableNameList = new ArrayList<>();
-        tableNameList.add("SqlPipe");
-        tableNameList.add("PipeBatch");
-        tableNameList.add("PipeComponent");
-        tableNameList.add("PipeCutting");
-        tableNameList.add("PipeManage");
-        tableNameList.add("PipeMaterial");
-        tableNameList.add("PipeStore");
-        tableNameList.add("PipeUnit");
-        tableNameList.add("ShipManage");
-        tableNameList.add("SqlWorkPipe");
+        tableNameList.add(Constants.TB_sqlPipe);
+        tableNameList.add(Constants.TB_sqlPipeBatch);
+        tableNameList.add(Constants.TB_sqlPipeComponent);
+        tableNameList.add(Constants.TB_sqlPipeManage);
+        tableNameList.add(Constants.TB_sqlPipeMaterial);
+        tableNameList.add(Constants.TB_sqlPipeCutting);
+        tableNameList.add(Constants.TB_sqlPipeStore);
+        tableNameList.add(Constants.TB_sqlPipeSurface);
+        tableNameList.add(Constants.TB_sqlPipeUnit);
+        tableNameList.add(Constants.TB_sqlShipManage);
 
-        tableNameList.add("SqlShipTypeManage");
+        tableNameList.add(Constants.TB_sqlWorkPipe);
+        tableNameList.add(Constants.TB_sqlShipTypeManage);
     }
 
     /**
@@ -52,7 +56,7 @@ public class ScanTable {
      *@param:
      * fixedDelay:上一个调用完成后再次调用，延时三分钟调用
      **/
-    @Scheduled(fixedDelay = 1000*3 )
+    @Scheduled(fixedDelay = 60*1000*1 )
     public void fixedDelay() throws Exception
     {
         logger.debug("------将要扫描中间数据库------");
@@ -75,50 +79,52 @@ public class ScanTable {
         List<UpdateTable> updateTableList = updateTableRepository.findByIsUpdate(Boolean.TRUE);
         if (updateTableList!=null&&updateTableList.size()>0){
             for (int i=0;i<updateTableList.size();i++){
-                logger.debug("table:"+updateTableList.get(i).getTableName()+" isUpdate");
+                UpdateTable updateTable =updateTableList.get(i);
+                logger.debug("表格:"+updateTable.getTableName()+" isUpdate");
                 String tableName= updateTableList.get(i).getTableName();
                 switch (tableName){
-                    case "SqlPipe":{
+                    case Constants.TB_sqlPipe:{
 
                         updateTableRepository.findAll();
                     }break;
-                    case "PipeBatch":{
-
-                        updateTableRepository.findAll();
-                    }break;
-                    case "PipeComponent":{
-
-                        updateTableRepository.findAll();
-                    }break;
-                    case "PipeCutting":{
-
-                        updateTableRepository.findAll();
-                    }break;
-                    case "PipeManage":{
+                    case Constants.TB_sqlPipeBatch:{
 
                     }break;
-                    case "PipeMaterial":{
+                    case Constants.TB_sqlPipeComponent:{
 
                     }break;
-                    case "PipeStore":{
+                    case Constants.TB_sqlPipeCutting:{
 
                     }break;
-                    case "PipeUnit":{
-
-                        updateTableRepository.findAll();
-                    }break;
-                    case "ShipManage":{
-
-                        updateTableRepository.findAll();
-                    }break;
-                    case "SqlWorkPipe":{
+                    case Constants.TB_sqlPipeManage:{
 
                     }break;
-                    case "SqlShipTypeManage":{
+                    case Constants.TB_sqlPipeMaterial:{
 
                     }break;
-                }
-            }
+                    case Constants.TB_sqlPipeStore:{
+
+                    }break;
+                    case Constants.TB_sqlPipeUnit:{
+
+
+                    }break;
+                    case Constants.TB_sqlWorkPipe:{
+
+                    }break;
+                    case Constants.TB_sqlShipManage:{
+                        shipManageService.update();
+                    }break;
+                    case Constants.TB_sqlShipTypeManage:{
+                        break;
+                    }
+                    default:{
+
+                    }
+                }//switch 结束
+                updateTable.setUpdate(Boolean.FALSE);
+                updateTableRepository.save(updateTable);
+            }//for循环结束
         }
         else {
             logger.debug("没有数据表被设置要更新!");
@@ -172,6 +178,9 @@ public class ScanTable {
                     case "SqlShipTypeManage":{
 
                     }break;
+                    default:{
+
+                    }
                 }
             }
         }

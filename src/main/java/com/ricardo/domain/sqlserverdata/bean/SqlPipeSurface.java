@@ -103,4 +103,17 @@ public class SqlPipeSurface {
     public void setSurfaceShortName(String surfaceShortName) {
         this.surfaceShortName = surfaceShortName;
     }
+
+    @Override
+    public String toString() {
+        return "SqlPipeSurface{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", surfaceCode='" + surfaceCode + '\'' +
+                ", surfaceFullName='" + surfaceFullName + '\'' +
+                ", surfaceShortName='" + surfaceShortName + '\'' +
+                '}';
+    }
 }

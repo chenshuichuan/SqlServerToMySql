@@ -138,4 +138,19 @@ public class SqlPipe {
     public void setSetCode(String setCode) {
         this.setCode = setCode;
     }
+
+    @Override
+    public String toString() {
+        return "SqlPipe{" +
+                "oldId=" + oldId +
+                ", midId=" + midId +
+                ", isDelete=" + isDelete +
+                ", isUpdate=" + isUpdate +
+                ", designAreaCode='" + designAreaCode + '\'' +
+                ", segmentCode='" + segmentCode + '\'' +
+                ", trayCode='" + trayCode + '\'' +
+                ", assemblyCode='" + assemblyCode + '\'' +
+                ", setCode='" + setCode + '\'' +
+                '}';
+    }
 }

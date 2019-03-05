@@ -46,7 +46,10 @@ public class PipManage extends BaseEntity
     @Column(name = "process_stage")
 	private String processStage;
 
-	public void setOldId(Integer oldId) 
+	public PipManage() {
+	}
+
+	public void setOldId(Integer oldId)
 	{
 		this.oldId = oldId;
 	}
