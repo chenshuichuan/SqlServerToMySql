@@ -2,6 +2,7 @@ package com.ricardo.domain.mysqldata.pipe.pipManage;
 import javax.persistence.*;
 
 import com.ricardo.domain.mysqldata.bean.BaseEntity;
+import com.ricardo.domain.sqlserverdata.bean.SqlPipeManage;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -47,6 +48,29 @@ public class PipManage extends BaseEntity
 	private String processStage;
 
 	public PipManage() {
+	}
+	public PipManage(SqlPipeManage sqlPipeManage) {
+		this.oldId = sqlPipeManage.getOldId();
+		this.midOid = sqlPipeManage.getMidId();
+		this.isDelete = sqlPipeManage.getDelete()?1:0;
+		this.isUpdate = sqlPipeManage.getUpdate()?1:0;
+		this.callShipId = sqlPipeManage.getCallShipId();
+		this.assemblyPipeId = sqlPipeManage.getAssemblyId();
+		this.processUnitId = sqlPipeManage.getProcessUnitId();
+		this.dispatchForm = sqlPipeManage.getDispatchList();
+		this.processStage = sqlPipeManage.getProcessOrder();
+	}
+	public PipManage(Integer oldId, Integer midOid, Integer isDelete, Integer isUpdate, Integer callShipId,
+					 Integer assemblyPipeId, Integer processUnitId, String dispatchForm, String processStage) {
+		this.oldId = oldId;
+		this.midOid = midOid;
+		this.isDelete = isDelete;
+		this.isUpdate = isUpdate;
+		this.callShipId = callShipId;
+		this.assemblyPipeId = assemblyPipeId;
+		this.processUnitId = processUnitId;
+		this.dispatchForm = dispatchForm;
+		this.processStage = processStage;
 	}
 
 	public void setOldId(Integer oldId)

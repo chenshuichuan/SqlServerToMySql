@@ -1,6 +1,7 @@
 package com.ricardo.domain.mysqldata.pipe.pipStore;
 
 import com.ricardo.domain.mysqldata.bean.BaseEntity;
+import com.ricardo.domain.sqlserverdata.bean.SqlPipeStore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -55,6 +56,33 @@ public class PipStore extends BaseEntity
 	private Date inStoreDate;
 
 	public PipStore() {
+	}
+	public PipStore(SqlPipeStore sqlPipeStore) {
+		this.oldId = sqlPipeStore.getOldId();
+		this.midOid = sqlPipeStore.getMidId();
+		this.isDelete = sqlPipeStore.getDelete()?1:0;
+		this.isUpdate = sqlPipeStore.getUpdate()?1:0;
+		this.callShipId = sqlPipeStore.getCallShipId();
+		this.assemblyPipeId = sqlPipeStore.getAssemblyId();
+		this.processUnitId = sqlPipeStore.getProcessUnitId();
+		this.storePlace = sqlPipeStore.getStorePlace();
+		this.collectionDate = sqlPipeStore.getCollectionDate();
+		this.outStoreDate = sqlPipeStore.getOutStoreDate();
+		this.inStoreDate = sqlPipeStore.getInStoreDate();
+	}
+	public PipStore(Integer oldId, Integer midOid, Integer isDelete, Integer isUpdate, Integer callShipId, Integer assemblyPipeId,
+					Integer processUnitId, String storePlace, Date collectionDate, Date outStoreDate, Date inStoreDate) {
+		this.oldId = oldId;
+		this.midOid = midOid;
+		this.isDelete = isDelete;
+		this.isUpdate = isUpdate;
+		this.callShipId = callShipId;
+		this.assemblyPipeId = assemblyPipeId;
+		this.processUnitId = processUnitId;
+		this.storePlace = storePlace;
+		this.collectionDate = collectionDate;
+		this.outStoreDate = outStoreDate;
+		this.inStoreDate = inStoreDate;
 	}
 
 	public void setOldId(Integer oldId)

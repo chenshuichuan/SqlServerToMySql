@@ -81,6 +81,28 @@ public class Unit extends BaseEntity
 	public Unit() {
 	}
 
+	public Unit(Integer id, String name, String shipCode, Integer batchId,
+				String batchName, String remark) {
+		this.id = id;
+		this.name = name;
+		this.shipCode = shipCode;
+		this.batchId = batchId;
+		this.batchName = batchName;
+		this.planId = 0;
+		this.remark = remark;
+
+		this.pipeShape = "";
+		this.pipeNumber = 0;
+		this.processOrderId = 0;
+		this.processStageId = 0;
+		this.nextStageId = 0;
+		this.unprocessNumber = 0;
+		this.processingNumber = 0;
+		this.processedNumber = 0;
+		this.updateTime = new Date();
+		this.isFinished = 0;
+	}
+
 	public void setId(Integer id)
 	{
 		this.id = id;

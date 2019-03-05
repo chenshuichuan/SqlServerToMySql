@@ -22,7 +22,6 @@ public class Batch extends BaseEntity
 	
 	/** 批次编号 */
 	@Id
-	@GeneratedValue
     @Column(name = "id")
 	private Integer id;
 	/** 批次名称 */
@@ -60,6 +59,21 @@ public class Batch extends BaseEntity
 	private Integer isFinished;
 
 	public Batch() {
+	}
+
+	public Batch(Integer id, String name, String remark, String shipCode) {
+		this.id = id;
+		this.name = name;
+		this.remark = remark;
+		this.shipCode = shipCode;
+		this.unitNumber = 0;
+		this.processingNumber = 0;
+		this.unprocessNumber = 0;
+		this.processedNumber = 0;
+		this.updateTime = new Date();
+		this.lackUnitNumber = 0;
+		this.lackPipeNumber = 0;
+		this.isFinished = 0;
 	}
 
 	public void setId(Integer id)

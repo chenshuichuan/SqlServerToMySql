@@ -1,6 +1,7 @@
 package com.ricardo.domain.mysqldata.pipe.pipMaterial;
 
 import com.ricardo.domain.mysqldata.bean.BaseEntity;
+import com.ricardo.domain.sqlserverdata.bean.SqlPipeMaterial;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -54,6 +55,33 @@ public class PipMaterial extends BaseEntity
 	private String outfieldFlag;
 
 	public PipMaterial() {
+	}
+	public PipMaterial(SqlPipeMaterial sqlPipeMaterial) {
+		this.oldId = sqlPipeMaterial.getOldId();
+		this.midOid = sqlPipeMaterial.getMidId();
+		this.isDelete = sqlPipeMaterial.getDelete()?1:0;
+		this.isUpdate = sqlPipeMaterial.getUpdate()?1:0;
+		this.shapeShipId = sqlPipeMaterial.getShapeShipId();
+		this.assemblyPipeId = sqlPipeMaterial.getAssemblyId();
+		this.componentId = sqlPipeMaterial.getComponentId();
+		this.pipeEndFlag = sqlPipeMaterial.getPipeEndFlag();
+		this.number = sqlPipeMaterial.getAmount();
+		this.weight = sqlPipeMaterial.getWeight();
+		this.outfieldFlag = sqlPipeMaterial.getPipeEndFlag();
+	}
+	public PipMaterial(Integer oldId, Integer midOid, Integer isDelete, Integer isUpdate, Integer shapeShipId, Integer assemblyPipeId,
+					   Integer componentId, String pipeEndFlag, double number, double weight, String outfieldFlag) {
+		this.oldId = oldId;
+		this.midOid = midOid;
+		this.isDelete = isDelete;
+		this.isUpdate = isUpdate;
+		this.shapeShipId = shapeShipId;
+		this.assemblyPipeId = assemblyPipeId;
+		this.componentId = componentId;
+		this.pipeEndFlag = pipeEndFlag;
+		this.number = number;
+		this.weight = weight;
+		this.outfieldFlag = outfieldFlag;
 	}
 
 	public void setOldId(Integer oldId)

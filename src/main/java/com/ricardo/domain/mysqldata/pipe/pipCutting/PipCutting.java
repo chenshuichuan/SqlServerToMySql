@@ -1,6 +1,7 @@
 package com.ricardo.domain.mysqldata.pipe.pipCutting;
 
 import com.ricardo.domain.mysqldata.bean.BaseEntity;
+import com.ricardo.domain.sqlserverdata.bean.SqlPipeCutting;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -60,6 +61,41 @@ public class PipCutting extends BaseEntity
 	private String noInstalled;
 
 	public PipCutting() {
+	}
+
+	public PipCutting(SqlPipeCutting sqlPipeCutting) {
+		this.oldId = sqlPipeCutting.getOldId();
+		this.midOid = sqlPipeCutting.getMidId();
+		this.isDelete = sqlPipeCutting.getDelete() ? 1:0;
+		this.isUpdate = sqlPipeCutting.getUpdate() ? 1:0;
+		this.callShipId = sqlPipeCutting.getCallShipId();
+		this.assemblyPipeId = sqlPipeCutting.getAssemblyId();
+		this.processUnitId = sqlPipeCutting.getProcessUnitId();
+		this.machiningBatch = sqlPipeCutting.getMachiningBatch();
+		this.cutLength = (double)sqlPipeCutting.getCuttingLength();
+		this.inClassShipLevel = sqlPipeCutting.getInClassShipLevel();
+		this.pipeSpecification = sqlPipeCutting.getPipeSpecification();
+		this.pipeShape = sqlPipeCutting.getPipeShape();
+		this.noInstalled = sqlPipeCutting.getNoInstalled();
+	}
+
+	public PipCutting(Integer oldId, Integer midOid, Integer isDelete, Integer isUpdate,
+					  Integer callShipId, Integer assemblyPipeId, Integer processUnitId,
+					  String machiningBatch, Double cutLength, String inClassShipLevel, String pipeSpecification,
+					  String pipeShape, String noInstalled) {
+		this.oldId = oldId;
+		this.midOid = midOid;
+		this.isDelete = isDelete;
+		this.isUpdate = isUpdate;
+		this.callShipId = callShipId;
+		this.assemblyPipeId = assemblyPipeId;
+		this.processUnitId = processUnitId;
+		this.machiningBatch = machiningBatch;
+		this.cutLength = cutLength;
+		this.inClassShipLevel = inClassShipLevel;
+		this.pipeSpecification = pipeSpecification;
+		this.pipeShape = pipeShape;
+		this.noInstalled = noInstalled;
 	}
 
 	public void setOldId(Integer oldId)
