@@ -3,7 +3,7 @@ package com.ricardo.schedule.task;
 import com.ricardo.domain.mysqldata.bean.Constants;
 import com.ricardo.domain.sqlserverdata.bean.UpdateTable;
 import com.ricardo.domain.sqlserverdata.jpa.UpdateTableRepository;
-import com.ricardo.service.ShipManageService;
+import com.ricardo.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,22 @@ public class ScanTable {
 
     @Autowired
     private ShipManageService shipManageService;
+    @Autowired
+    private PipeBatchService pipeBatchService;
+    @Autowired
+    private PipeCuttingService pipeCuttingService;
+    @Autowired
+    private PipeUnitService pipeUnitService;
+    @Autowired
+    private PipeManageService pipeManageService;
+    @Autowired
+    private PipeMaterialService pipeMaterialService;
+    @Autowired
+    private PipeStoreService pipeStoreService;
+    @Autowired
+    private SqlWorkPipeService workPipeService;
+    @Autowired
+    private PipePipeService pipPipeService;
 
     public ScanTable() {
         this.tableNameList = new ArrayList<>();
@@ -71,13 +87,16 @@ public class ScanTable {
 
     /**
      *@Author: Ricardo
-     *@Description: 对每个要更新的数据表进行更新操作
+     *@Description: 对每个要更新的数据表进行更新操作，更新表的内容应该有个先后顺序？
+     *              这个问题要和管业公司沟通好，更新时间间隔，或是要求红帆吧所有表更新完之后再写入 updateTable表，就不需要考虑顺序了
      *@Date: 16:20 2018/4/6
      *@param:
      **/
     private void scanUpdate(){
         List<UpdateTable> updateTableList = updateTableRepository.findByIsUpdate(Boolean.TRUE);
+
         if (updateTableList!=null&&updateTableList.size()>0){
+
             for (int i=0;i<updateTableList.size();i++){
                 UpdateTable updateTable =updateTableList.get(i);
                 logger.debug("表格:"+updateTable.getTableName()+" isUpdate");
@@ -85,39 +104,39 @@ public class ScanTable {
                 switch (tableName){
                     case Constants.TB_sqlPipe:{
 
-                        updateTableRepository.findAll();
+                        //updateTableRepository.findAll();
+                        pipPipeService.update();
                     }break;
                     case Constants.TB_sqlPipeBatch:{
-
+                        pipeBatchService.update();
                     }break;
                     case Constants.TB_sqlPipeComponent:{
 
                     }break;
-                    case Constants.TB_sqlPipeCutting:{
-
-                    }break;
-                    case Constants.TB_sqlPipeManage:{
-
-                    }break;
-                    case Constants.TB_sqlPipeMaterial:{
-
-                    }break;
-                    case Constants.TB_sqlPipeStore:{
-
-                    }break;
+//                    case Constants.TB_sqlPipeCutting:{
+//                        pipeCuttingService.update();
+//                    }break;
+//                    case Constants.TB_sqlPipeManage:{
+//                        pipeManageService.update();
+//                    }break;
+//                    case Constants.TB_sqlPipeMaterial:{
+//                        pipeMaterialService.update();
+//                    }break;
+//                    case Constants.TB_sqlPipeStore:{
+//                        pipeStoreService.update();
+//                    }break;
                     case Constants.TB_sqlPipeUnit:{
-
-
+                        pipeUnitService.update();
                     }break;
-                    case Constants.TB_sqlWorkPipe:{
-
-                    }break;
+//                    case Constants.TB_sqlWorkPipe:{
+//                        workPipeService.update();
+//                    }break;
                     case Constants.TB_sqlShipManage:{
                         shipManageService.update();
                     }break;
                     case Constants.TB_sqlShipTypeManage:{
-                        break;
-                    }
+
+                    }break;
                     default:{
 
                     }

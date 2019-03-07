@@ -49,10 +49,10 @@ public class Batch extends BaseEntity
     @Column(name = "update_time")
 	private Date updateTime;
 	/** 批次缺件单元数 */
-    @Column(name = "lackUnit_number")
+    @Column(name = "lack_unit_number")
 	private Integer lackUnitNumber;
 	/** 批次缺件管件数 */
-    @Column(name = "lackPipe_number")
+    @Column(name = "lack_pipe_number")
 	private Integer lackPipeNumber;
 	/** 是否完工 */
     @Column(name = "is_finished")

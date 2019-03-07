@@ -1,6 +1,7 @@
 package com.ricardo.domain.mysqldata.pipe.pipe;
 
 import com.ricardo.domain.mysqldata.bean.BaseEntity;
+import com.ricardo.domain.sqlserverdata.bean.SqlPipeCutting;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -61,6 +62,40 @@ public class Pipe extends BaseEntity
 	private Integer isOutOfUnit;
 
 	public Pipe() {
+	}
+	public Pipe(SqlPipeCutting sqlPipeCutting) {
+		this.id = sqlPipeCutting.getOldId();
+		this.unitId = sqlPipeCutting.getProcessUnitId();
+		this.callShipId = sqlPipeCutting.getCallShipId();
+		this.assemblyPipeId = sqlPipeCutting.getAssemblyId();
+		this.updateTime = new Date();
+		this.processOrder = 0;
+		this.processStage = 0;
+		this.nextStage = 0;
+		this.processIndex = 0;
+		this.isOutOfUnit = 0;
+
+	}
+	public Pipe(Integer id, Integer unitId, String collecteCode, Integer callShipId, Integer assemblyPipeId,
+				Date updateTime, Integer processOrder, Integer processStage, Integer nextStage, Integer processIndex, Integer isOutOfUnit) {
+		this.id = id;
+		this.unitId = unitId;
+		this.collecteCode = collecteCode;
+		this.callShipId = callShipId;
+		this.assemblyPipeId = assemblyPipeId;
+		this.updateTime = updateTime;
+		this.processOrder = processOrder;
+		this.processStage = processStage;
+		this.nextStage = nextStage;
+		this.processIndex = processIndex;
+		this.isOutOfUnit = isOutOfUnit;
+	}
+
+	public Pipe(Integer unitId, Integer callShipId, Integer assemblyPipeId) {
+		this.unitId = unitId;
+		this.callShipId = callShipId;
+		this.assemblyPipeId = assemblyPipeId;
+		this.updateTime = new Date();
 	}
 
 	public void setId(Integer id)
