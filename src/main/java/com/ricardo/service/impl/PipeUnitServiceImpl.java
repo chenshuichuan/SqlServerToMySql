@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -82,6 +83,7 @@ public class PipeUnitServiceImpl implements PipeUnitService {
                         object.setRemark(temp.getDescription());
                         object.setBatchId(sqlPipeBatch.getOldId());
                         object.setBatchName(sqlPipeBatch.getProcessingBatch());
+                        object.setUpdateTime(new Date());
                         //保存
                         unitRepository.save(object);
                         //更新其他数据库表？

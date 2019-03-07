@@ -17,6 +17,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -75,6 +76,7 @@ public class ShipManageServiceImpl implements ShipManageService {
                         ship.setShipCode(temp.getCallShipCode());
                         ship.setShipName(temp.getCallShipName());
                         ship.setShapeShipId(Integer.toString(temp.getShapeShipId()));
+                        ship.setUpdateTime(new Date());
                         shipRepository.save(ship);
 
                         //更新其他数据库表？

@@ -22,6 +22,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -72,6 +73,7 @@ public class PipeBatchServiceImpl implements PipeBatchService {
                         object.setShipCode(sqlShipManage.getCallShipCode());
                         object.setName(temp.getProcessingBatch());
                         object.setRemark(temp.getDescription());
+                        object.setUpdateTime(new Date());
                         batchRepository.save(object);
 
                         //更新其他数据库表？

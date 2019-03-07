@@ -33,7 +33,7 @@ public class PipCutting extends BaseEntity
     @Column(name = "is_update")
 	private Integer isUpdate;
 	/** 号船ID */
-    @Column(name = "call_shipId")
+    @Column(name = "call_ship_id")
 	private Integer callShipId;
 	/** 装配管ID */
     @Column(name = "assembly_pipe_id")

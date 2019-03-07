@@ -113,24 +113,24 @@ public class ScanTable {
                     case Constants.TB_sqlPipeComponent:{
 
                     }break;
-//                    case Constants.TB_sqlPipeCutting:{
-//                        pipeCuttingService.update();
-//                    }break;
-//                    case Constants.TB_sqlPipeManage:{
-//                        pipeManageService.update();
-//                    }break;
-//                    case Constants.TB_sqlPipeMaterial:{
-//                        pipeMaterialService.update();
-//                    }break;
-//                    case Constants.TB_sqlPipeStore:{
-//                        pipeStoreService.update();
-//                    }break;
+                    case Constants.TB_sqlPipeCutting:{
+                        pipeCuttingService.update();
+                    }break;
+                    case Constants.TB_sqlPipeManage:{
+                        pipeManageService.update();
+                    }break;
+                    case Constants.TB_sqlPipeMaterial:{
+                        pipeMaterialService.update();
+                    }break;
+                    case Constants.TB_sqlPipeStore:{
+                        pipeStoreService.update();
+                    }break;
                     case Constants.TB_sqlPipeUnit:{
                         pipeUnitService.update();
                     }break;
-//                    case Constants.TB_sqlWorkPipe:{
-//                        workPipeService.update();
-//                    }break;
+                    case Constants.TB_sqlWorkPipe:{
+                        workPipeService.update();
+                    }break;
                     case Constants.TB_sqlShipManage:{
                         shipManageService.update();
                     }break;

@@ -98,7 +98,7 @@ public class SqlWorkPipeServiceImpl implements SqlWorkPipeService {
             updateData();
         }
         catch (DataException d){
-            middleStatusRepository.save(d.getMiddleStatus());
+           middleStatusRepository.save(d.getMiddleStatus());
         }
     }
     @Override

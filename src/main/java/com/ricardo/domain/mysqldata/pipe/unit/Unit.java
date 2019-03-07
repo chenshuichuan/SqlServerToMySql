@@ -27,7 +27,7 @@ public class Unit extends BaseEntity
     @Column(name = "name")
 	private String name;
 	/** 号船代号 */
-    @Column(name = "ship-ode")
+    @Column(name = "ship_code")
 	private String shipCode;
 	/** p批次id */
     @Column(name = "batch_id")
@@ -72,7 +72,7 @@ public class Unit extends BaseEntity
     @Column(name = "processed_number")
 	private Integer processedNumber;
 	/** 更新时间 */
-    @Column(name = "update_nime")
+    @Column(name = "update_time")
 	private Date updateTime;
 	/** 是否完工 */
     @Column(name = "is_finished")

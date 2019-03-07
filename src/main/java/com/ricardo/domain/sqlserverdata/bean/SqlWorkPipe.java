@@ -28,7 +28,7 @@ public class SqlWorkPipe {
     @Column(name="是否更新")
     private  Boolean isUpdate;
 
-    @Column(name="号船ID")
+    @Column(name="型船ID")
     private  int callShipId;
 
     @Column(name="装配管ID")
@@ -56,7 +56,7 @@ public class SqlWorkPipe {
     private  String pipeSectionShape;
 
     @Column(name="下料长")
-    private  double cuttingLength;
+    private  Double cuttingLength;
 
     @Column(name="表面处理")
     private  String surfaceTreat;
@@ -196,11 +196,11 @@ public class SqlWorkPipe {
         this.pipeSectionShape = pipeSectionShape;
     }
 
-    public double getCuttingLength() {
+    public Double getCuttingLength() {
         return cuttingLength;
     }
 
-    public void setCuttingLength(double cuttingLength) {
+    public void setCuttingLength(Double cuttingLength) {
         this.cuttingLength = cuttingLength;
     }
 

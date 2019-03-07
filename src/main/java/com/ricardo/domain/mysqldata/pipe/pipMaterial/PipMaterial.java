@@ -33,16 +33,16 @@ public class PipMaterial extends BaseEntity
     @Column(name = "is_update")
 	private Integer isUpdate;
 	/** 型船ID */
-    @Column(name = "shape_shipId")
+    @Column(name = "shape_ship_id")
 	private Integer shapeShipId;
 	/** 装配管ID */
-    @Column(name = "assembly_pipeId")
+    @Column(name = "assembly_pipe_id")
 	private Integer assemblyPipeId;
 	/** 部件ID */
     @Column(name = "component_id")
 	private Integer componentId;
 	/** 管端标识 */
-    @Column(name = "pipeEnd_flag")
+    @Column(name = "pipe_end_flag")
 	private String pipeEndFlag;
 	/** 数量 */
     @Column(name = "number")

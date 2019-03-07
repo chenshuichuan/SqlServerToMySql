@@ -26,7 +26,7 @@ public class WorkPipe extends BaseEntity
 	private Integer id;
 
 	/** 号船id */
-    @Column(name = "call_shipId")
+    @Column(name = "shape_ship_id")
 	private Integer callShipId;
 	/** 装配管id */
     @Column(name = "assembly_pipe_id")
@@ -78,7 +78,7 @@ public class WorkPipe extends BaseEntity
 		this.pipeShape = sqlWorkPipe.getPipeSectionShape();
 		this.surfaceTreat = sqlWorkPipe.getSurfaceTreat();
 
-		this.cutLength = sqlWorkPipe.getCuttingLength();
+		this.cutLength = sqlWorkPipe.getCuttingLength()==null?0:sqlWorkPipe.getCuttingLength();
 		this.outfield = sqlWorkPipe.getOutfieldAssemblyFlag();
 		this.updateTime = new Date();
 	}

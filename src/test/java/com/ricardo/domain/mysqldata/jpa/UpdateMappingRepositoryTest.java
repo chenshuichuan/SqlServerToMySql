@@ -1,6 +1,9 @@
 package com.ricardo.domain.mysqldata.jpa;
 
 import com.ricardo.domain.mysqldata.bean.UpdateMapping;
+import com.ricardo.domain.mysqldata.pipe.workPipe.WorkPipe;
+import com.ricardo.domain.mysqldata.pipe.workPipe.service.WorkPipeRepository;
+import com.ricardo.domain.sqlserverdata.bean.SqlWorkPipe;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,10 +15,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 import static java.lang.Boolean.TRUE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 
 /**
@@ -31,7 +36,8 @@ public class UpdateMappingRepositoryTest {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UpdateMappingRepository updateMappingRepository;
-
+    @Autowired
+    private WorkPipeRepository workPipeRepository;
     @Test
     @Transactional
     public void updateMappingTestSave() throws Exception {
@@ -72,6 +78,14 @@ public class UpdateMappingRepositoryTest {
 //        updateMappingRepository.save(updateMapping);
 //        Assert.assertThat(updateMappingRepository.findByOID(2).getTablename(),
 //                is("pipe"));
+    }
+
+    @Test
+    public void workPipeRepository() {
+        List<WorkPipe> pipeList = workPipeRepository.findAll();
+        Assert.assertThat(pipeList,notNullValue());
+        //Assert.assertThat(pipeList.size(),greaterThan(0));
+        System.out.println("find size = "+pipeList.size());
     }
 
 }
