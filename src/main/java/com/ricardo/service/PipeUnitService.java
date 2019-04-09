@@ -1,5 +1,10 @@
 package com.ricardo.service;
 
+import com.ricardo.domain.mysqldata.pipe.batch.Batch;
+import com.ricardo.domain.mysqldata.pipe.unit.Unit;
+
+import java.util.List;
+
 /**
  * @author Ricardo
  *
@@ -17,7 +22,7 @@ public interface PipeUnitService {
      *@Date: 10:29 2018/4/7
      *@param:
      **/
-    void update();
+    List<Unit> update();
 
     /**
      *@Author: Ricardo
@@ -26,5 +31,12 @@ public interface PipeUnitService {
      *@param:
      **/
     void delete();
+
+    /**
+     * 统计单元包含的管件
+     *
+     * */
+    int calPipeNumberOfUnit(Unit unit);
+
 
 }

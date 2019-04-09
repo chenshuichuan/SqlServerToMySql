@@ -4,10 +4,13 @@ import com.ricardo.domain.mysqldata.bean.Constants;
 import com.ricardo.domain.mysqldata.bean.DataException;
 import com.ricardo.domain.mysqldata.bean.MiddleStatus;
 import com.ricardo.domain.mysqldata.jpa.MiddleStatusRepository;
+import com.ricardo.domain.mysqldata.pipe.batch.Batch;
+import com.ricardo.domain.mysqldata.pipe.batch.service.BatchRepository;
 import com.ricardo.domain.mysqldata.pipe.ship.Ship;
 import com.ricardo.domain.mysqldata.pipe.ship.service.ShipRepository;
 import com.ricardo.domain.sqlserverdata.bean.SqlShipManage;
 import com.ricardo.domain.sqlserverdata.jpa.SqlShipManageRepository;
+import com.ricardo.service.PipeBatchService;
 import com.ricardo.service.ShipManageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,9 +54,17 @@ public class ShipManageServiceImpl implements ShipManageService {
     @Autowired
     private MiddleStatusRepository middleStatusRepository;
 
+    @Autowired
+    private BatchRepository batchRepository;
+    @Autowired
+    private PipeBatchService pipeBatchService;
 
     @Transactional(rollbackFor = DataException.class)
-    private void updateData()throws DataException {
+    private List<Ship>  updateData()throws DataException {
+
+        //记录新添加的ship ，以便对其进行统计
+        List<Ship> shipList = new ArrayList<>();
+
         System.out.println("--updateData()");
         List<SqlShipManage> objectList = sqlShipManageRepository.findByIsUpdate(Boolean.TRUE);
         if(objectList!=null&&objectList.size()>0){
@@ -67,6 +79,8 @@ public class ShipManageServiceImpl implements ShipManageService {
                         System.out.println("--updateData() 新建"+temp.getCallShipName());
 
                         ship = new Ship(temp.getOldId(),temp.getCallShipCode(),temp.getCallShipName(),Integer.toString(temp.getShapeShipId()));
+                        //
+                        shipList.add(ship);
                         shipRepository.save(ship);
                     }
                     //存在则更新
@@ -77,6 +91,7 @@ public class ShipManageServiceImpl implements ShipManageService {
                         ship.setShipName(temp.getCallShipName());
                         ship.setShapeShipId(Integer.toString(temp.getShapeShipId()));
                         ship.setUpdateTime(new Date());
+
                         shipRepository.save(ship);
 
                         //更新其他数据库表？
@@ -103,7 +118,7 @@ public class ShipManageServiceImpl implements ShipManageService {
         else {
             logger.error("没有需要更新的ShipManage数据！");
         }
-
+        return  shipList;
     }
 
 
@@ -120,13 +135,15 @@ public class ShipManageServiceImpl implements ShipManageService {
         }
     }
     @Override
-    public void update(){
+    public List<Ship>  update(){
+        List<Ship> shipList = null;
         try{
-            updateData();
+            shipList = updateData();
         }
         catch (DataException d){
             middleStatusRepository.save(d.getMiddleStatus());
         }
+        return shipList;
     }
     @Override
     public void delete(){
@@ -136,5 +153,39 @@ public class ShipManageServiceImpl implements ShipManageService {
         catch (DataException d){
             middleStatusRepository.save(d.getMiddleStatus());
         }
+    }
+
+    @Override
+    public int calPipeNumberOfUnitsByShip(Ship ship) {
+        if(null ==ship){
+            return 0;
+        }
+        List<Batch> batchList = batchRepository.findByShipCode(ship.getShipCode());
+        for (Batch batch: batchList){
+            pipeBatchService.calPipeNumberOfUnitsByBatch(batch);
+        }
+        return 1;
+    }
+    @Override
+    public int calUnitNumberOfBatchsByShip(Ship ship) {
+        if(null ==ship){
+            return 0;
+        }
+        List<Batch> batchList = batchRepository.findByShipCode(ship.getShipCode());
+        for (Batch batch: batchList){
+            pipeBatchService.calUnitNumberOfBatch(batch);
+        }
+        return 1;
+    }
+
+    @Override
+    public int calBatchNumberOfShip(Ship ship) {
+        if(null ==ship){
+            return 0;
+        }
+        int number = batchRepository.countByShipCode(ship.getShipCode());
+        ship.setBatchNumber(number);
+        shipRepository.save(ship);
+        return number;
     }
 }

@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Date: 2018/8/22
  */
 public interface ShipRepository extends JpaRepository<Ship,Integer> {
-
+    Ship findByShipCode(String shipCode);
 
 }

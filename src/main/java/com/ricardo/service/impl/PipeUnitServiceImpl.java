@@ -6,6 +6,7 @@ import com.ricardo.domain.mysqldata.bean.MiddleStatus;
 import com.ricardo.domain.mysqldata.jpa.MiddleStatusRepository;
 import com.ricardo.domain.mysqldata.pipe.batch.Batch;
 import com.ricardo.domain.mysqldata.pipe.batch.service.BatchRepository;
+import com.ricardo.domain.mysqldata.pipe.pipe.service.PipeRepository;
 import com.ricardo.domain.mysqldata.pipe.unit.Unit;
 import com.ricardo.domain.mysqldata.pipe.unit.service.UnitRepository;
 import com.ricardo.domain.sqlserverdata.bean.SqlPipeBatch;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,12 +45,17 @@ public class PipeUnitServiceImpl implements PipeUnitService {
     @Autowired
     private UnitRepository unitRepository;
     @Autowired
+    private BatchRepository batchRepository;
+    @Autowired
+    private PipeRepository pipeRepository;
+    @Autowired
     private MiddleStatusRepository middleStatusRepository;
     @Autowired
     private SqlShipManageRepository sqlShipManageRepository;
 
     @Transactional(rollbackFor = DataException.class)
-    private void updateData()throws DataException {
+    private List<Unit> updateData()throws DataException {
+        List<Unit> unitList = new ArrayList<>();
         System.out.println("--updateData()");
         List<SqlPipeUnit> objectList = sqlPipeUnitRepository.findByIsUpdate(Boolean.TRUE);
         if(objectList!=null&&objectList.size()>0){
@@ -72,6 +79,7 @@ public class PipeUnitServiceImpl implements PipeUnitService {
                         object = new Unit(temp.getOldId(),temp.getProcessUnit(),sqlShipManage.getCallShipCode()
                                 ,sqlPipeBatch.getOldId(),sqlPipeBatch.getProcessingBatch(),temp.getDescription());
                         //保存
+                        unitList.add(object);
                         unitRepository.save(object);
                     }
                     //存在则更新
@@ -111,6 +119,7 @@ public class PipeUnitServiceImpl implements PipeUnitService {
         else {
             logger.error("没有需要更新的PipeBatch数据！");
         }
+        return unitList;
 
     }
 
@@ -128,13 +137,15 @@ public class PipeUnitServiceImpl implements PipeUnitService {
         }
     }
     @Override
-    public void update(){
+    public List<Unit> update(){
+        List<Unit> unitList = null;
         try{
-            updateData();
+            unitList = updateData();
         }
         catch (DataException d){
             middleStatusRepository.save(d.getMiddleStatus());
         }
+        return unitList;
     }
     @Override
     public void delete(){
@@ -145,4 +156,19 @@ public class PipeUnitServiceImpl implements PipeUnitService {
             middleStatusRepository.save(d.getMiddleStatus());
         }
     }
+
+    /**
+     * 计算单元的管件数*/
+    @Override
+    public int calPipeNumberOfUnit(Unit unit) {
+        if(null == unit){
+            return 0;
+        }
+        int number = pipeRepository.countByBatchIdAndUnitId(unit.getBatchId(),unit.getId());
+        unit.setPipeNumber(number);
+        unitRepository.save(unit);
+        return number;
+    }
+
+
 }

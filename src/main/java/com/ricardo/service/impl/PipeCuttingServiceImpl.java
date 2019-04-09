@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +59,9 @@ public class PipeCuttingServiceImpl implements PipeCuttingService {
 
 
     @Transactional(rollbackFor = DataException.class)
-    private void updateData()throws DataException {
+    private List<Pipe> updateData()throws DataException {
+        List<Pipe> pipeList = new ArrayList<>();
+
         System.out.println("--updateData()");
         List<SqlPipeCutting> objectList = sqlPipeCuttingRepository.findByIsUpdate(Boolean.TRUE);
         if(objectList!=null&&objectList.size()>0){
@@ -66,11 +69,12 @@ public class PipeCuttingServiceImpl implements PipeCuttingService {
                 SqlPipeCutting temp = objectList.get(i);
                 try{
                     //1.更新mysql
+
                     PipCutting object =new PipCutting(temp);
                     pipCuttingRepository.save(object);
 
                     //更新pipe_pipe 表
-                    updatePipe(temp);
+                    pipeList = updatePipe(temp);
 
                     //2.更新SQL server
                     temp.setUpdate(Boolean.FALSE);
@@ -93,7 +97,7 @@ public class PipeCuttingServiceImpl implements PipeCuttingService {
         else {
             logger.error("没有需要更新的PipeBatch数据！");
         }
-
+        return  pipeList;
     }
 
     @Transactional(rollbackFor = DataException.class)
@@ -112,7 +116,10 @@ public class PipeCuttingServiceImpl implements PipeCuttingService {
     /**
      *根据构想，以pipeCutting表的号船id和装配管ID确定一根管，那么pipeCutting的OID作为pipe_pipe的id
      */
-    private void updatePipe(SqlPipeCutting sqlPipeCutting)throws Exception{
+    private List<Pipe> updatePipe(SqlPipeCutting sqlPipeCutting)throws Exception{
+
+        List<Pipe> pipeList = new ArrayList<>();
+
         SqlPipeUnit sqlPipeUnit = sqlPipeUnitRepository.findOne(sqlPipeCutting.getProcessUnitId());
         SqlPipeBatch sqlPipeBatch = sqlPipeBatchRepository.findOne(sqlPipeUnit.getProcessBatchId());
         if(sqlPipeBatch.getCallShipId()!=sqlPipeCutting.getCallShipId()){
@@ -139,6 +146,8 @@ public class PipeCuttingServiceImpl implements PipeCuttingService {
                 pipe.setBatchId(sqlPipeUnit.getProcessBatchId());
                 pipe.setCollecteCode(sqlPipe.getSetCode());
                 pipe.setUpdateTime(new Date());
+
+                pipeList.add(pipe);
                 pipeRepository.save(pipe);
             }
             else{
@@ -154,17 +163,20 @@ public class PipeCuttingServiceImpl implements PipeCuttingService {
             }
 
         }
+        return  pipeList;
     }
 
 
     @Override
-    public void update(){
+    public List<Pipe> update(){
+        List<Pipe> pipeList =null;
         try{
-            updateData();
+            pipeList = updateData();
         }
         catch (DataException d){
             middleStatusRepository.save(d.getMiddleStatus());
         }
+        return pipeList;
     }
     @Override
     public void delete(){

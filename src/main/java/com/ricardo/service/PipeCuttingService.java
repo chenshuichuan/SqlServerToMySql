@@ -1,5 +1,9 @@
 package com.ricardo.service;
 
+import com.ricardo.domain.mysqldata.pipe.pipe.Pipe;
+
+import java.util.List;
+
 /**
  * @author Ricardo
  *
@@ -17,7 +21,7 @@ public interface PipeCuttingService {
      *@Date: 10:29 2018/4/7
      *@param:
      **/
-    void update();
+    List<Pipe> update();
 
     /**
      *@Author: Ricardo

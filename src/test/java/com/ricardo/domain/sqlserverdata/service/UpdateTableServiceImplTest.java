@@ -1,7 +1,10 @@
 package com.ricardo.domain.sqlserverdata.service;
 
+import com.ricardo.domain.mysqldata.pipe.ship.Ship;
+import com.ricardo.domain.mysqldata.pipe.ship.service.ShipRepository;
 import com.ricardo.domain.sqlserverdata.bean.*;
 import com.ricardo.domain.sqlserverdata.jpa.*;
+import com.ricardo.service.ShipManageService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +14,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static java.lang.Boolean.TRUE;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 
 /**
@@ -48,6 +56,10 @@ public class UpdateTableServiceImplTest {
     @Autowired
     private SqlWorkPipeRepository workPipeRepository;
 
+    @Autowired
+    private ShipRepository shipRepository;
+    @Autowired
+    private ShipManageService shipManageService;
 
 //    @Test
 //    public void addUser() throws Exception {
@@ -261,5 +273,32 @@ public class UpdateTableServiceImplTest {
         Assert.assertThat(workPipeRepository.findByIsUpdate(TRUE).size(),greaterThan(0));
     }
 
+    @Test
+    @Transactional
+    public void testSet() throws Exception {
+        Set<Integer> batchSet = new TreeSet<>();
+        List<Integer> integerList = new ArrayList<>();
+        integerList.add(0);
+        integerList.add(1);
+        integerList.add(2);
+        integerList.add(3);
+        integerList.add(2);
+        integerList.add(1);
+        for (Integer unit: integerList){
+
+            batchSet.add(unit);
+        }
+        Assert.assertThat(batchSet.size(),greaterThan(0));
+        Assert.assertThat(batchSet.size(),equalTo(4));
+    }
+
+    @Test
+    public void updateCal() throws Exception {
+        Ship ship = shipRepository.findOne(10);
+        //shipManageService.calPipeNumberOfUnitsByShip(ship);
+        //shipManageService.calUnitNumberOfBatchsByShip(ship);
+        shipManageService.calBatchNumberOfShip(ship);
+
+    }
 
 }

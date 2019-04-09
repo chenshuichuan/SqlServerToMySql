@@ -8,11 +8,14 @@ import com.ricardo.domain.mysqldata.pipe.batch.Batch;
 import com.ricardo.domain.mysqldata.pipe.batch.service.BatchRepository;
 import com.ricardo.domain.mysqldata.pipe.ship.Ship;
 import com.ricardo.domain.mysqldata.pipe.ship.service.ShipRepository;
+import com.ricardo.domain.mysqldata.pipe.unit.Unit;
+import com.ricardo.domain.mysqldata.pipe.unit.service.UnitRepository;
 import com.ricardo.domain.sqlserverdata.bean.SqlPipeBatch;
 import com.ricardo.domain.sqlserverdata.bean.SqlShipManage;
 import com.ricardo.domain.sqlserverdata.jpa.SqlPipeBatchRepository;
 import com.ricardo.domain.sqlserverdata.jpa.SqlShipManageRepository;
 import com.ricardo.service.PipeBatchService;
+import com.ricardo.service.PipeUnitService;
 import com.ricardo.service.ShipManageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +25,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,12 +45,19 @@ public class PipeBatchServiceImpl implements PipeBatchService {
     @Autowired
     private BatchRepository batchRepository;
     @Autowired
+    private UnitRepository unitRepository;
+    @Autowired
     private MiddleStatusRepository middleStatusRepository;
     @Autowired
     private SqlShipManageRepository sqlShipManageRepository;
 
+    @Autowired
+    PipeUnitService pipeUnitService;
+
     @Transactional(rollbackFor = DataException.class)
-    private void updateData()throws DataException {
+    private List<Batch> updateData()throws DataException {
+        List<Batch> batchList = new ArrayList<>();
+
         System.out.println("--updateData()");
         List<SqlPipeBatch> objectList = sqlPipeBatchRepository.findByIsUpdate(Boolean.TRUE);
         if(objectList!=null&&objectList.size()>0){
@@ -64,6 +75,8 @@ public class PipeBatchServiceImpl implements PipeBatchService {
                         System.out.println("--updateData() 新建:"+temp.getProcessingBatch());
 
                         object = new Batch(temp.getOldId(),temp.getProcessingBatch(),temp.getDescription(),sqlShipManage.getCallShipCode());
+                        //
+                        batchList.add(object);
                         batchRepository.save(object);
                     }
                     //存在则更新
@@ -101,6 +114,7 @@ public class PipeBatchServiceImpl implements PipeBatchService {
             logger.error("没有需要更新的PipeBatch数据！");
         }
 
+        return batchList;
     }
 
 
@@ -117,13 +131,15 @@ public class PipeBatchServiceImpl implements PipeBatchService {
         }
     }
     @Override
-    public void update(){
+    public List<Batch> update(){
+        List<Batch> batchList = null;
         try{
-            updateData();
+            batchList = updateData();
         }
         catch (DataException d){
             middleStatusRepository.save(d.getMiddleStatus());
         }
+        return batchList;
     }
     @Override
     public void delete(){
@@ -133,5 +149,38 @@ public class PipeBatchServiceImpl implements PipeBatchService {
         catch (DataException d){
             middleStatusRepository.save(d.getMiddleStatus());
         }
+    }
+
+    @Override
+    public int calUnitNumberOfBatch(Batch batch) {
+        if(batch == null){
+            return 0;
+        }
+        int number = unitRepository.countByBatchId(batch.getId());
+        if(number>-1){
+            batch.setUnitNumber(number);
+            batchRepository.save(batch);
+            return  1;
+        }
+        else{
+            MiddleStatus middleStatus = new MiddleStatus("计算批次所含单元数出错！","pipe_unit",
+                    batch.toString(),"calUnitNumberOfBatch(Batch batch) ");
+            middleStatusRepository.save(middleStatus);
+        }
+        return 0;
+    }
+
+    /**
+     * 计算批次下所有单元的管件数*/
+    @Override
+    public int calPipeNumberOfUnitsByBatch(Batch batch) {
+        if (batch == null){
+            return  0;
+        }
+        List<Unit> unitList = unitRepository.findByAndBatchId(batch.getId());
+        for (Unit unit: unitList){
+            pipeUnitService.calPipeNumberOfUnit(unit);
+        }
+        return 1;
     }
 }

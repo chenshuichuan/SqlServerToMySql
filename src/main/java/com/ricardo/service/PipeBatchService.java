@@ -1,5 +1,9 @@
 package com.ricardo.service;
 
+import com.ricardo.domain.mysqldata.pipe.batch.Batch;
+
+import java.util.List;
+
 /**
  * @author Ricardo
  *
@@ -17,7 +21,7 @@ public interface PipeBatchService {
      *@Date: 10:29 2018/4/7
      *@param:
      **/
-    void update();
+    List<Batch> update();
 
     /**
      *@Author: Ricardo
@@ -27,4 +31,16 @@ public interface PipeBatchService {
      **/
     void delete();
 
+
+    /**
+     * 统计批次吓所有单元数
+     *
+     * */
+    int calUnitNumberOfBatch(Batch batch);
+
+    /**
+     * 统计批次吓所有单元包含的管件
+     *
+     * */
+    int calPipeNumberOfUnitsByBatch(Batch batch);
 }

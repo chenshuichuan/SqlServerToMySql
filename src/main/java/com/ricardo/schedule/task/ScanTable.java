@@ -1,6 +1,13 @@
 package com.ricardo.schedule.task;
 
 import com.ricardo.domain.mysqldata.bean.Constants;
+import com.ricardo.domain.mysqldata.pipe.batch.Batch;
+import com.ricardo.domain.mysqldata.pipe.batch.service.BatchRepository;
+import com.ricardo.domain.mysqldata.pipe.pipe.Pipe;
+import com.ricardo.domain.mysqldata.pipe.ship.Ship;
+import com.ricardo.domain.mysqldata.pipe.ship.service.ShipRepository;
+import com.ricardo.domain.mysqldata.pipe.unit.Unit;
+import com.ricardo.domain.mysqldata.pipe.unit.service.UnitRepository;
 import com.ricardo.domain.sqlserverdata.bean.UpdateTable;
 import com.ricardo.domain.sqlserverdata.jpa.UpdateTableRepository;
 import com.ricardo.service.*;
@@ -12,6 +19,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
@@ -47,6 +56,12 @@ public class ScanTable {
     private SqlWorkPipeService workPipeService;
     @Autowired
     private PipePipeService pipPipeService;
+    @Autowired
+    private ShipRepository shipRepository;
+    @Autowired
+    private BatchRepository batchRepository;
+    @Autowired
+    private UnitRepository unitRepository;
 
     public ScanTable() {
         this.tableNameList = new ArrayList<>();
@@ -95,6 +110,13 @@ public class ScanTable {
     private void scanUpdate(){
         List<UpdateTable> updateTableList = updateTableRepository.findByIsUpdate(Boolean.TRUE);
 
+        //是否应该更新计算数量操作
+        boolean shouldCalFlag = false;
+        List<Pipe> pipeList = new ArrayList<>() ;
+        List<Unit> unitList = new ArrayList<>() ;
+        List<Batch> batchList = new ArrayList<>();
+        List<Ship> shipList = new ArrayList<>();
+
         if (updateTableList!=null&&updateTableList.size()>0){
 
             for (int i=0;i<updateTableList.size();i++){
@@ -103,18 +125,17 @@ public class ScanTable {
                 String tableName= updateTableList.get(i).getTableName();
                 switch (tableName){
                     case Constants.TB_sqlPipe:{
-
                         //updateTableRepository.findAll();
                         pipPipeService.update();
                     }break;
                     case Constants.TB_sqlPipeBatch:{
-                        pipeBatchService.update();
+                        batchList =  pipeBatchService.update();
                     }break;
                     case Constants.TB_sqlPipeComponent:{
 
                     }break;
                     case Constants.TB_sqlPipeCutting:{
-                        pipeCuttingService.update();
+                        pipeList = pipeCuttingService.update();
                     }break;
                     case Constants.TB_sqlPipeManage:{
                         pipeManageService.update();
@@ -126,13 +147,14 @@ public class ScanTable {
                         pipeStoreService.update();
                     }break;
                     case Constants.TB_sqlPipeUnit:{
-                        pipeUnitService.update();
+                        unitList = pipeUnitService.update();
+
                     }break;
                     case Constants.TB_sqlWorkPipe:{
                         workPipeService.update();
                     }break;
                     case Constants.TB_sqlShipManage:{
-                        shipManageService.update();
+                        shipList = shipManageService.update();
                     }break;
                     case Constants.TB_sqlShipTypeManage:{
 
@@ -144,11 +166,67 @@ public class ScanTable {
                 updateTable.setUpdate(Boolean.FALSE);
                 updateTableRepository.save(updateTable);
             }//for循环结束
+
+            //更新ship/batch/unit的统计数据
+            updateCalNumber(shipList,batchList,unitList, pipeList);
         }
         else {
             logger.debug("没有数据表被设置要更新!");
         }
     }
+
+    /**
+     * 计算各级包含下级数量*/
+    private void updateCalNumber(List<Ship>shipList, List<Batch> batchList, List<Unit> unitList,List<Pipe> pipeList){
+
+        //根据更新的pipe去更新unit
+        if(null !=unitList){
+            Set<Integer> unitSet = new TreeSet<>();
+            for (Pipe pipe: pipeList){
+                unitSet.add(pipe.getUnitId());
+            }
+            //根据更新的pipe去更新unit
+            for (Integer integer: unitSet){
+                Unit unit = unitRepository.findOne(integer);
+                pipeUnitService.calPipeNumberOfUnit(unit);
+            }
+        }
+
+        //计算单元包含管件数量
+        if(null !=unitList){
+            Set<Integer> batchSet = new TreeSet<>();
+            for (Unit unit: unitList){
+                pipeUnitService.calPipeNumberOfUnit(unit);
+                batchSet.add(unit.getBatchId());
+            }
+            //根据涉及的batch去更新
+            for (Integer integer: batchSet){
+                Batch batch = batchRepository.findOne(integer);
+                pipeBatchService.calUnitNumberOfBatch(batch);
+            }
+        }
+        //计算批次包含单元数量
+        if(null !=batchList){
+            Set<String> shipSet = new TreeSet<>();
+            for (Batch batch: batchList){
+                pipeBatchService.calUnitNumberOfBatch(batch);
+                shipSet.add(batch.getShipCode());
+            }
+            //根据涉及的ship去更新
+            for (String shipcode: shipSet){
+                Ship ship = shipRepository.findByShipCode(shipcode);
+                shipManageService.calBatchNumberOfShip(ship);
+            }
+        }
+        //计算船舶包含批次数量
+        if(null !=shipList){
+            for (Ship ship: shipList){
+                shipManageService.calBatchNumberOfShip(ship);
+            }
+        }
+
+    }
+
 
     /**
      *@Author: Ricardo

@@ -9,297 +9,329 @@ import java.util.Date;
 
 /**
  * 加工单元表 pipe_unit
- * 
+ *
  * @author ricardo
  * @date 2019-03-04
  */
 @Entity
-@Table(name="pipe_unit")
-public class Unit extends BaseEntity
-{
-	private static final long serialVersionUID = 1L;
-	
-	/** id */
-	@Id
+@Table(name = "pipe_unit")
+public class Unit extends BaseEntity {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * id
+     */
+    @Id
     @Column(name = "id")
-	private Integer id;
-	/** 单元名称 */
+    private Integer id;
+    /**
+     * 单元名称
+     */
     @Column(name = "name")
-	private String name;
-	/** 号船代号 */
+    private String name;
+    /**
+     * 号船代号
+     */
     @Column(name = "ship_code")
-	private String shipCode;
-	/** p批次id */
+    private String shipCode;
+    /**
+     * p批次id
+     */
     @Column(name = "batch_id")
-	private Integer batchId;
-	/** 批次名称 */
+    private Integer batchId;
+    /**
+     * 批次名称
+     */
     @Column(name = "batch_name")
-	private String batchName;
-	/** 计划id-process_id */
+    private String batchName;
+    /**
+     * 计划id-process_id
+     */
     @Column(name = "plan_id")
-	private Integer planId;
-	/** 备注 */
+    private Integer planId;
+    /**
+     * 备注
+     */
     @Column(name = "remark")
-	private String remark;
-	/** 管形态 */
+    private String remark;
+    /**
+     * 管形态
+     */
     @Column(name = "pipe_shape")
-	private String pipeShape;
-	/** 包含管件数 */
+    private String pipeShape;
+    /**
+     * 包含管件数
+     */
     @Column(name = "pipe_number")
-	private Integer pipeNumber;
-	/** 下料工段 */
+    private Integer pipeNumber;
+    /**
+     * 下料工段
+     */
     @Column(name = "cut_section")
-	private String cutSection;
-	/** j加工工段 */
+    private String cutSection;
+    /**
+     * j加工工段
+     */
     @Column(name = "process_section")
-	private String processSection;
-	/** 加工顺序id */
+    private String processSection;
+    /**
+     * 加工顺序id
+     */
     @Column(name = "process_order_id")
-	private Integer processOrderId;
-	/** 当前所在工序id */
+    private Integer processOrderId;
+    /**
+     * 当前所在工序id
+     */
     @Column(name = "process_stage_id")
-	private Integer processStageId;
-	/** 下一工序id */
+    private Integer processStageId;
+    /**
+     * 下一工序id
+     */
     @Column(name = "next_stage_id")
-	private Integer nextStageId;
-	/** 未加工管数量 */
+    private Integer nextStageId;
+    /**
+     * 未加工管数量
+     */
     @Column(name = "unprocess_number")
-	private Integer unprocessNumber;
-	/** j加工中管数 */
+    private Integer unprocessNumber;
+    /**
+     * j加工中管数
+     */
     @Column(name = "processing_number")
-	private Integer processingNumber;
-	/** 加工完成管数量 */
+    private Integer processingNumber;
+    /**
+     * 加工完成管数量
+     */
     @Column(name = "processed_number")
-	private Integer processedNumber;
-	/** 更新时间 */
+    private Integer processedNumber;
+    /**
+     * 更新时间
+     */
     @Column(name = "update_time")
-	private Date updateTime;
-	/** 是否完工 */
+    private Date updateTime;
+    /**
+     * 是否完工
+     */
     @Column(name = "is_finished")
-	private Integer isFinished;
+    private Integer isFinished;
+    /**
+     * 是否已派工
+     */
+    @Column(name = "is_arrange")
+    private Integer isArrange;
 
-	public Unit() {
-	}
+    public Unit() {
+    }
 
-	public Unit(Integer id, String name, String shipCode, Integer batchId,
-				String batchName, String remark) {
-		this.id = id;
-		this.name = name;
-		this.shipCode = shipCode;
-		this.batchId = batchId;
-		this.batchName = batchName;
-		this.planId = 0;
-		this.remark = remark;
+    public Integer getIsArrange() {
+        return isArrange;
+    }
 
-		this.pipeShape = "";
-		this.pipeNumber = 0;
-		this.processOrderId = 0;
-		this.processStageId = 0;
-		this.nextStageId = 0;
-		this.unprocessNumber = 0;
-		this.processingNumber = 0;
-		this.processedNumber = 0;
-		this.updateTime = new Date();
-		this.isFinished = 0;
-	}
+    public void setIsArrange(Integer isArrange) {
+        this.isArrange = isArrange;
+    }
 
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
+    public Unit(Integer id, String name, String shipCode, Integer batchId,
+                String batchName, String remark) {
+        this.id = id;
+        this.name = name;
+        this.shipCode = shipCode;
+        this.batchId = batchId;
+        this.batchName = batchName;
+        this.planId = 0;
+        this.remark = remark;
 
-	public Integer getId() 
-	{
-		return id;
-	}
-	public void setName(String name) 
-	{
-		this.name = name;
-	}
+        this.pipeShape = "";
+        this.pipeNumber = 0;
+        this.processOrderId = 0;
+        this.processStageId = 0;
+        this.nextStageId = 0;
+        this.unprocessNumber = 0;
+        this.processingNumber = 0;
+        this.processedNumber = 0;
+        this.updateTime = new Date();
+        this.isFinished = 0;
+        this.isArrange = 0;
+    }
 
-	public String getName() 
-	{
-		return name;
-	}
-	public void setShipCode(String shipCode) 
-	{
-		this.shipCode = shipCode;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getShipCode() 
-	{
-		return shipCode;
-	}
-	public void setBatchId(Integer batchId) 
-	{
-		this.batchId = batchId;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getBatchId() 
-	{
-		return batchId;
-	}
-	public void setBatchName(String batchName) 
-	{
-		this.batchName = batchName;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getBatchName() 
-	{
-		return batchName;
-	}
-	public void setPlanId(Integer planId) 
-	{
-		this.planId = planId;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Integer getPlanId() 
-	{
-		return planId;
-	}
-	@Override
-	public void setRemark(String remark) 
-	{
-		this.remark = remark;
-	}
+    public void setShipCode(String shipCode) {
+        this.shipCode = shipCode;
+    }
 
-	@Override
-	public String getRemark() 
-	{
-		return remark;
-	}
-	public void setPipeShape(String pipeShape) 
-	{
-		this.pipeShape = pipeShape;
-	}
+    public String getShipCode() {
+        return shipCode;
+    }
 
-	public String getPipeShape() 
-	{
-		return pipeShape;
-	}
-	public void setPipeNumber(Integer pipeNumber) 
-	{
-		this.pipeNumber = pipeNumber;
-	}
+    public void setBatchId(Integer batchId) {
+        this.batchId = batchId;
+    }
 
-	public Integer getPipeNumber() 
-	{
-		return pipeNumber;
-	}
-	public void setCutSection(String cutSection) 
-	{
-		this.cutSection = cutSection;
-	}
+    public Integer getBatchId() {
+        return batchId;
+    }
 
-	public String getCutSection() 
-	{
-		return cutSection;
-	}
-	public void setProcessSection(String processSection) 
-	{
-		this.processSection = processSection;
-	}
+    public void setBatchName(String batchName) {
+        this.batchName = batchName;
+    }
 
-	public String getProcessSection() 
-	{
-		return processSection;
-	}
-	public void setProcessOrderId(Integer processOrderId) 
-	{
-		this.processOrderId = processOrderId;
-	}
+    public String getBatchName() {
+        return batchName;
+    }
 
-	public Integer getProcessOrderId() 
-	{
-		return processOrderId;
-	}
-	public void setProcessStageId(Integer processStageId) 
-	{
-		this.processStageId = processStageId;
-	}
+    public void setPlanId(Integer planId) {
+        this.planId = planId;
+    }
 
-	public Integer getProcessStageId() 
-	{
-		return processStageId;
-	}
-	public void setNextStageId(Integer nextStageId) 
-	{
-		this.nextStageId = nextStageId;
-	}
+    public Integer getPlanId() {
+        return planId;
+    }
 
-	public Integer getNextStageId() 
-	{
-		return nextStageId;
-	}
-	public void setUnprocessNumber(Integer unprocessNumber) 
-	{
-		this.unprocessNumber = unprocessNumber;
-	}
+    @Override
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public Integer getUnprocessNumber() 
-	{
-		return unprocessNumber;
-	}
-	public void setProcessingNumber(Integer processingNumber) 
-	{
-		this.processingNumber = processingNumber;
-	}
+    @Override
+    public String getRemark() {
+        return remark;
+    }
 
-	public Integer getProcessingNumber() 
-	{
-		return processingNumber;
-	}
-	public void setProcessedNumber(Integer processedNumber) 
-	{
-		this.processedNumber = processedNumber;
-	}
+    public void setPipeShape(String pipeShape) {
+        this.pipeShape = pipeShape;
+    }
 
-	public Integer getProcessedNumber() 
-	{
-		return processedNumber;
-	}
-	@Override
-	public void setUpdateTime(Date updateTime) 
-	{
-		this.updateTime = updateTime;
-	}
+    public String getPipeShape() {
+        return pipeShape;
+    }
 
-	@Override
-	public Date getUpdateTime() 
-	{
-		return updateTime;
-	}
-	public void setIsFinished(Integer isFinished) 
-	{
-		this.isFinished = isFinished;
-	}
+    public void setPipeNumber(Integer pipeNumber) {
+        this.pipeNumber = pipeNumber;
+    }
 
-	public Integer getIsFinished() 
-	{
-		return isFinished;
-	}
+    public Integer getPipeNumber() {
+        return pipeNumber;
+    }
+
+    public void setCutSection(String cutSection) {
+        this.cutSection = cutSection;
+    }
+
+    public String getCutSection() {
+        return cutSection;
+    }
+
+    public void setProcessSection(String processSection) {
+        this.processSection = processSection;
+    }
+
+    public String getProcessSection() {
+        return processSection;
+    }
+
+    public void setProcessOrderId(Integer processOrderId) {
+        this.processOrderId = processOrderId;
+    }
+
+    public Integer getProcessOrderId() {
+        return processOrderId;
+    }
+
+    public void setProcessStageId(Integer processStageId) {
+        this.processStageId = processStageId;
+    }
+
+    public Integer getProcessStageId() {
+        return processStageId;
+    }
+
+    public void setNextStageId(Integer nextStageId) {
+        this.nextStageId = nextStageId;
+    }
+
+    public Integer getNextStageId() {
+        return nextStageId;
+    }
+
+    public void setUnprocessNumber(Integer unprocessNumber) {
+        this.unprocessNumber = unprocessNumber;
+    }
+
+    public Integer getUnprocessNumber() {
+        return unprocessNumber;
+    }
+
+    public void setProcessingNumber(Integer processingNumber) {
+        this.processingNumber = processingNumber;
+    }
+
+    public Integer getProcessingNumber() {
+        return processingNumber;
+    }
+
+    public void setProcessedNumber(Integer processedNumber) {
+        this.processedNumber = processedNumber;
+    }
+
+    public Integer getProcessedNumber() {
+        return processedNumber;
+    }
+
+    @Override
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setIsFinished(Integer isFinished) {
+        this.isFinished = isFinished;
+    }
+
+    public Integer getIsFinished() {
+        return isFinished;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("name", getName())
-            .append("shipCode", getShipCode())
-            .append("batchId", getBatchId())
-            .append("batchName", getBatchName())
-            .append("planId", getPlanId())
-            .append("remark", getRemark())
-            .append("pipeShape", getPipeShape())
-            .append("pipeNumber", getPipeNumber())
-            .append("cutSection", getCutSection())
-            .append("processSection", getProcessSection())
-            .append("processOrderId", getProcessOrderId())
-            .append("processStageId", getProcessStageId())
-            .append("nextStageId", getNextStageId())
-            .append("unprocessNumber", getUnprocessNumber())
-            .append("processingNumber", getProcessingNumber())
-            .append("processedNumber", getProcessedNumber())
-            .append("updateTime", getUpdateTime())
-            .append("isFinished", getIsFinished())
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("id", getId())
+                .append("name", getName())
+                .append("shipCode", getShipCode())
+                .append("batchId", getBatchId())
+                .append("batchName", getBatchName())
+                .append("planId", getPlanId())
+                .append("remark", getRemark())
+                .append("pipeShape", getPipeShape())
+                .append("pipeNumber", getPipeNumber())
+                .append("cutSection", getCutSection())
+                .append("processSection", getProcessSection())
+                .append("processOrderId", getProcessOrderId())
+                .append("processStageId", getProcessStageId())
+                .append("nextStageId", getNextStageId())
+                .append("unprocessNumber", getUnprocessNumber())
+                .append("processingNumber", getProcessingNumber())
+                .append("processedNumber", getProcessedNumber())
+                .append("updateTime", getUpdateTime())
+                .append("isFinished", getIsFinished())
+                .toString();
     }
 }

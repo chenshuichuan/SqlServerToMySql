@@ -46,7 +46,7 @@ public class PipCutting extends BaseEntity
 	private String machiningBatch;
 	/** 下料长 */
     @Column(name = "cut_length")
-	private Double cutLength;
+	private Integer cutLength;
 	/** 入级船级社 */
     @Column(name = "in_class_ship_level")
 	private String inClassShipLevel;
@@ -72,7 +72,7 @@ public class PipCutting extends BaseEntity
 		this.assemblyPipeId = sqlPipeCutting.getAssemblyId();
 		this.processUnitId = sqlPipeCutting.getProcessUnitId();
 		this.machiningBatch = sqlPipeCutting.getMachiningBatch();
-		this.cutLength = (double)sqlPipeCutting.getCuttingLength();
+		this.cutLength = sqlPipeCutting.getCuttingLength();
 		this.inClassShipLevel = sqlPipeCutting.getInClassShipLevel();
 		this.pipeSpecification = sqlPipeCutting.getPipeSpecification();
 		this.pipeShape = sqlPipeCutting.getPipeShape();
@@ -81,7 +81,7 @@ public class PipCutting extends BaseEntity
 
 	public PipCutting(Integer oldId, Integer midOid, Integer isDelete, Integer isUpdate,
 					  Integer callShipId, Integer assemblyPipeId, Integer processUnitId,
-					  String machiningBatch, Double cutLength, String inClassShipLevel, String pipeSpecification,
+					  String machiningBatch, Integer cutLength, String inClassShipLevel, String pipeSpecification,
 					  String pipeShape, String noInstalled) {
 		this.oldId = oldId;
 		this.midOid = midOid;
@@ -170,12 +170,12 @@ public class PipCutting extends BaseEntity
 	{
 		return machiningBatch;
 	}
-	public void setCutLength(Double cutLength) 
+	public void setCutLength(Integer cutLength)
 	{
 		this.cutLength = cutLength;
 	}
 
-	public Double getCutLength() 
+	public Integer getCutLength()
 	{
 		return cutLength;
 	}

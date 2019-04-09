@@ -4,6 +4,7 @@ import com.ricardo.domain.mysqldata.pipe.pipPipe.domain.PipPipe;
 import com.ricardo.domain.mysqldata.pipe.pipStore.PipStore;
 import com.ricardo.domain.mysqldata.pipe.pipStore.service.PipStoreRepository;
 import com.ricardo.domain.mysqldata.pipe.pipe.Pipe;
+import com.ricardo.domain.mysqldata.pipe.pipe.service.PipeRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,4 +46,15 @@ public class PipPipeRepositoryTest {
         Assert.assertThat(pipeList.size(),greaterThan(0));
         System.out.println("find size = "+pipeList.size());
     }
+
+    @Autowired
+    private PipeRepository myPipeRepository;
+    @Test
+    public void countPipe() {
+        int count = myPipeRepository.countByBatchIdAndUnitId(5,5);
+        Assert.assertThat(count,greaterThan(0));
+
+        System.out.println("find size = "+count);
+    }
+
 }
